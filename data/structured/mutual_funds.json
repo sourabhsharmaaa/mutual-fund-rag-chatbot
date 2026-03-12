@@ -1,27 +1,29 @@
 {
-  "scraped_at": "2026-03-03T12:32:19.565249+05:30",
+  "scraped_at": "2026-03-12T18:48:59.350697+05:30",
   "total_urls_attempted": 15,
-  "total_urls_ok": 14,
+  "total_urls_ok": 9,
   "schemes": [
     {
       "scheme_name": "Parag Parikh Flexi Cap Fund",
       "short_name": "PPFCF",
       "category": "Flexi Cap",
-      "lock_in_period": "No lock-in period",
+      "lock_in_period": "None",
       "riskometer": "Very High",
       "exit_load": "2% if redeemed within 365 days; 1% if redeemed between 365 and 730 days; Nil after 730 days",
       "benchmark": "NIFTY 500 TRI (Primary); NIFTY 50 TRI (Additional)",
       "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
       "min_lumpsum_amount": "₹1,000",
       "source_urls": [
-        "https://www.indmoney.com/mutual-funds/parag-parikh-flexi-cap-direct-growth-3229"
+        "https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/"
       ],
-      "expense_ratio": "0.63%",
-      "min_sip_amount": "₹1,000",
-      "nav": "90.43",
-      "nav_as_of": "10-Mar-2026",
-      "investment_objective": "To seek to generate long-term capital growth from an actively managed portfolio primarily of Equity and Equity related Securities. Its investment strategy is to invest in a few stocks which conform to its selection criteria.",
-      "sid_link": "/downloads/ConfirmCitizenship.php"
+      "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER/",
+      "min_sip_amount": "NA",
+      "fund_size_aum": "NA",
+      "date_of_allotment": "NA",
+      "investment_objective": "NA",
+      "sid_link": "/downloads/ConfirmCitizenship.php",
+      "nav": "89.72700",
+      "nav_as_of": "11-Mar-2026"
     },
     {
       "scheme_name": "Parag Parikh ELSS Tax Saver Fund",
@@ -34,55 +36,60 @@
       "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
       "min_lumpsum_amount": "₹500",
       "source_urls": [
-        "https://www.indmoney.com/mutual-funds/parag-parikh-elss-tax-saver-fund-direct-growth-1004710"
+        "https://amc.ppfas.com/schemes/parag-parikh-tax-saver-fund/"
       ],
-      "expense_ratio": "0.70%",
-      "min_sip_amount": "₹500",
-      "nav": "32.12",
-      "nav_as_of": "10-Mar-2026",
-      "investment_objective": "To generate long-term capital appreciation by investing predominantly in equity and equity-related securities.",
-      "sid_link": "/downloads/ConfirmCitizenship.php"
+      "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER",
+      "min_sip_amount": "NA",
+      "fund_size_aum": "NA",
+      "date_of_allotment": "NA",
+      "investment_objective": "NA",
+      "sid_link": "/downloads/ConfirmCitizenship.php",
+      "nav": "31.86670",
+      "nav_as_of": "11-Mar-2026"
     },
     {
       "scheme_name": "Parag Parikh Conservative Hybrid Fund",
       "short_name": "PPCHF",
       "category": "Conservative Hybrid",
-      "lock_in_period": "No lock-in period",
+      "lock_in_period": "None",
       "riskometer": "Moderately High",
-      "exit_load": "1% if redeemed within 365 days; Nil after 365 days",
+      "exit_load": "2% if redeemed within 365 days; 1% if redeemed between 365 and 730 days; Nil after 730 days",
       "benchmark": "CRISIL Hybrid 85+15 Conservative Index",
       "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta, Rukun Tarachandani",
       "min_lumpsum_amount": "₹1,000",
       "source_urls": [
-        "https://www.indmoney.com/mutual-funds/parag-parikh-conservative-hybrid-fund-direct-growth-1006619"
+        "https://amc.ppfas.com/schemes/parag-parikh-conservative-hybrid-fund/"
       ],
-      "expense_ratio": "0.98%",
-      "min_sip_amount": "₹1,000",
-      "nav": "15.81",
-      "nav_as_of": "10-Mar-2026",
-      "date_of_allotment": "26-May-2021",
+      "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER",
+      "min_sip_amount": "NA",
+      "fund_size_aum": "NA",
+      "date_of_allotment": "NA",
       "investment_objective": "To generate regular income through investments predominantly in debt and money market instruments. The\n            Scheme also seeks to generate long term capital appreciation from the portion of equity investments under\n            the scheme.\n\n\n            \n\n            However, there is no assurance or guarantee that the investment objective of the Scheme will be achieved and\n            the Scheme does not assure or guarantee any returns.",
-      "sid_link": "/downloads/ConfirmCitizenship.php"
+      "sid_link": "/downloads/ConfirmCitizenship.php",
+      "nav": "15.82320",
+      "nav_as_of": "11-Mar-2026"
     },
     {
       "scheme_name": "Parag Parikh Liquid Fund",
       "short_name": "PPLF",
       "category": "Liquid",
-      "lock_in_period": "No lock-in period",
+      "lock_in_period": "None",
       "riskometer": "Low to Moderate",
       "exit_load": "Graded exit load: 0.0070% on Day 1 down to 0.0045% on Day 6; Nil from Day 7 onwards",
       "benchmark": "NIFTY Liquid Fund Index",
       "fund_manager": "Raj Mehta, Raunak Onkar",
       "min_lumpsum_amount": "₹5,000",
       "source_urls": [
-        "https://www.indmoney.com/mutual-funds/parag-parikh-liquid-fund-direct-growth-1214"
+        "https://amc.ppfas.com/schemes/parag-parikh-liquid-fund/"
       ],
-      "expense_ratio": "0.18%",
-      "min_sip_amount": "₹1,000",
-      "nav": "1518.16",
-      "nav_as_of": "10-Mar-2026",
-      "investment_objective": "To generate reasonable returns, commensurate with low risk and a high degree of liquidity, from a portfolio constituted of money market and debt instruments.",
-      "sid_link": "/downloads/ConfirmCitizenship.php"
+      "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER/",
+      "min_sip_amount": "NA",
+      "fund_size_aum": "NA",
+      "date_of_allotment": "NA",
+      "investment_objective": "NA",
+      "sid_link": "/downloads/ConfirmCitizenship.php",
+      "nav": "1518.36960",
+      "nav_as_of": "11-Mar-2026"
     }
   ],
   "faqs": [
@@ -147,51 +154,5 @@
     "summary": "NA",
     "source_url": "NA"
   },
-  "amc_overview": {
-    "amc_name": "Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
-    "aum_total": "NA",
-    "schemes_listed": [
-      "Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
-      "Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
-      "PPFAS Asset Management Private Ltd. manages Parag Parikh Mutual Fund, established in 2012 by Late Parag Parikh. Also known as PPFAS Mutual Fund, has a stand-out and unique approach towards managing funds.",
-      "They manage a total of 5 mutual fund schemes, including 2 equity, 1 debt, and 3 hybrid schemes. As of 2024, the AUM of Parag Parikh Mutual Fund is Rs. 62207 crore. The AMC's key people include Neil Parag Parikh, the Chairman and CEO, and Rajeev Thakkar, the Chief Information Officer (CIO) and Equity Fund Manager. The asset management company chose a tortoise named Professor Tortoise or ProTo as its logo because it represents wisdom and experience, which aligns with their investing philosophy.",
-      "Best Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)s",
-      "Parag Parikh Flexi Cap Direct Growth",
-      "Parag Parikh ELSS Tax Saver Fund Direct Growth",
-      "Parag Parikh Large Cap Fund Direct Growth",
-      "Top Fund Managers of Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
-      "Parag Parikh Large Cap Fund Direct Growth",
-      "Parag Parikh ELSS Tax Saver Fund Direct Growth",
-      "Parag Parikh Flexi Cap Direct Growth",
-      "Parag Parikh Conservative Hybrid Fund Direct Growth",
-      "Parag Parikh Arbitrage Fund Direct Growth",
-      "Parag Parikh Dynamic Asset Allocation Fund Direct Growth",
-      "Compare Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund) with other AMCs",
-      "Parag Parikh (PPFAS) Mutual Funds",
-      "After you have understood the details about Parag Parikh Mutual Fund, it is time for you to start your investment process with INDmoney. Below are some simple steps to follow to start your mutual fund's investment journey with us.",
-      "Step 2: Once your Free investment account is ready, you can either search for Parag Parikh Mutual Fund or go to the mutual fund section.",
-      "Step 3: Choose any Parag Parikh Mutual Fund by looking at aspects like past returns, volatility, downside capture ratio, AUM, Expense ratios and underlying stocks and sectors.",
-      "Step 4: You can choose to set up SIP in any Parag Parikh Mutual Fund or even invest as a lump sum. Once you are on the individual Parag Parikh Mutual Fund page, click \"One-time\" for lump sum investment or \"SIP\" for a systematic investment plan.",
-      "Step 6: Set up payments. If you choose to set up SIP in any Parag Parikh Mutual Fund, you can do a free automatic pay set-up via bank mandate or UPI. If you choose to invest in a lump sum (one-time) then you can pay via UPI, net banking, NEFT or RTGS.",
-      "Parag Parikh Mutual Fund application form",
-      "What is the minimum investment amount required for Parag Parikh Flexi Cap Mutual Fund Direct-Growth?",
-      "Rs. 1000 is the minimum amount for lumpsum investment and Rs. 1000 is the minimum SIP amount required for Parag Parikh Flexi Cap Mutual Fund Direct-Growth",
-      "How to calculate Parag Parikh Mutual Fund SIP ?",
-      "Parag Parikh Mutual Funds  SIP Calculator.",
-      "What are the three top-performing Parag Parikh Mutual Funds?",
-      "Parag Parikh Flexi Cap Direct Growth",
-      "Parag Parikh ELSS Tax Saver Fund Direct Growth",
-      "Parag Parikh Liquid Fund Direct Growth",
-      "How can I get an account statement for my investment in Parag Parikh Mutual Fund?",
-      "Parag Parikh Mutual Fund",
-      "How safe are investments in Parag Parikh Mutual Fund?",
-      "Parag Parikh Mutual Fund",
-      "Parag Parikh Mutual Fund",
-      "How to redeem a Parag Parikh mutual fund?",
-      "Parag Parikh Mutual Fund",
-      "Parag Parikh Flexi Cap Fund",
-      "Parag Parikh Mutual Fund"
-    ],
-    "source_url": "https://www.indmoney.com/mutual-funds/amc/parag-parikh-mutual-fund"
-  }
+  "amc_overview": {}
 }
