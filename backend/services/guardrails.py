@@ -260,12 +260,19 @@ class PostFilter:
 
         # Detect if this is a hard fallback / no-data response — skip source injection if so.
         # If it contains numeric symbols (%, RS, ₹) it likely has real data even with a disclaimer.
-        FALLBACK_PHRASES = ("couldn't find relevant data", "no information available")
+        # detect if this is a hard fallback / no-data response — skip source injection if so.
+        # If it contains numeric symbols (%, RS, ₹) it likely has real data.
+        FALLBACK_PHRASES = ("couldn't find relevant data", "no information available", "no data found")
         contains_data = bool(re.search(r'[\d\%₹]|rs\.', body_text, re.IGNORECASE))
-        is_hard_refusal = any(p.lower() in body_text.lower() for p in FALLBACK_PHRASES)
+        is_hard_refusal = any(p.lower() in raw_text.lower() for p in FALLBACK_PHRASES)
         
         # It's only a fallback if it refuses AND doesn't seem to have numeric data
         is_fallback = is_hard_refusal and not contains_data
+        
+        # If body_text became empty after URL stripping, but raw_text wasn't empty, 
+        # restore it (we'd rather have URLs than nothing)
+        if not body_text and raw_text.strip():
+            body_text = raw_text.strip()
         
         # New Safety: If the disclaimer IS present but it's NOT a fallback (i.e. we have real data),
         # strip the disclaimer and any transitional text like "However, ..." or "Based on..."
@@ -326,6 +333,14 @@ class PostFilter:
 
         # Step 4: Build citation block (skipped for fallback)
         citation = self._build_citation(used_sources)
+        
+        # FINAL SAFETY: If capped is STILL empty or extremely short (e.g. just whitespace/punctuation),
+        # and we AREN'T in a hard fallback, return a "No data found" sentinel so generator can handle it.
+        if not capped.strip() or len(capped.strip()) < 5:
+            if is_fallback:
+                return raw_text.strip() # Return whatever the LLM said as a fallback
+            return "NO_DATA"
+
         if citation:
             return f"{capped}\n\n{citation}"
         return capped
