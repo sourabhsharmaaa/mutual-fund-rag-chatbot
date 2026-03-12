@@ -47,13 +47,14 @@ class RetrievalResult:
 def _build_ef():
     """
     Returns the same embedding function used during indexing.
-    Enforcing sentence-transformers as the default to match ingest.
+    Defers to the logic in embedder/pipeline.py to prefer Gemini API (lightweight)
+    over local SentenceTransformers.
     """
     try:
-        from chromadb.utils import embedding_functions  # type: ignore
-        return embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")  # type: ignore
+        from embedder.pipeline import _build_embedding_function  # type: ignore
+        return _build_embedding_function()
     except Exception as exc:
-        logger.warning("SentenceTransformer EF init failed: %s — using default.", exc)
+        logger.warning("Failed to load embedding function from pipeline: %s", exc)
         return None
 
 
