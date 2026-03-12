@@ -70,7 +70,8 @@ class HuggingFaceInferenceEmbeddingFunction:
         import requests as req
         self._requests = req
         self._api_token = api_token
-        self._url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
+        # HF recently deprecated api-inference.huggingface.co in favor of router.huggingface.co
+        self._url = f"https://router.huggingface.co/hf-inference/models/{model_id}"
         self._headers = {"Authorization": f"Bearer {api_token}"}
 
     def __call__(self, input: list) -> list:  # type: ignore
