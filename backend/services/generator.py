@@ -282,7 +282,7 @@ class RAGGenerator:
         # Step 4 — Call LLM (Groq)
         t_llm_start = time.monotonic()
         try:
-            raw_response = self._call_llm(prompt)
+            raw_response = await self._call_llm(prompt)
         except Exception as exc:
             logger.error("LLM call failed: %s", exc)
             elapsed = (time.monotonic() - t0) * 1000
@@ -317,82 +317,101 @@ class RAGGenerator:
                 elapsed_ms=elapsed,
             )
 
-        # Only clear sources if this is a hard "No Data" refusal
-        is_hard_refusal = any(p in cleaned.lower() for p in ["couldn't find relevant data", "no information available"])
-        contains_data = bool(re.search(r'[\d\%₹]|rs\.', cleaned, re.IGNORECASE))
+        # Final source selection refined
+        final_source_urls = []
+        FRAGMENTS = {
+            "PPFCF": "parag-parikh-flexi-cap",
+            "PPTSF": "parag-parikh-tax-saver",
+            "PPCHF": "parag-parikh-conservative-hybrid",
+            "PPLF":  "parag-parikh-liquid"
+        }
+        # IndMoney mapping
+        FUND_SLUG_MAP = {
+            "parag-parikh-flexi-cap": "parag-parikh-flexi-cap-direct-growth-3229",
+            "parag-parikh-tax-saver": "parag-parikh-tax-saver-fund-direct-growth-1004710",
+            "parag-parikh-conservative-hybrid": "parag-parikh-conservative-hybrid-fund-direct-growth-1006619",
+            "parag-parikh-liquid": "parag-parikh-liquid-fund-direct-growth-1214"
+        }
+
+        # Auto-detect mentioned funds
+        query_fragments = []
+        answer_fragments = []
+        low_query = query.lower()
+        low_answer = cleaned.lower()
         
-        if is_hard_refusal and not contains_data:
+        # 1. Check if user filtered explicitly in UI
+        if fund_filter:
+            selected_codes = [t.strip().upper() for t in pyre.split(r'[,·|]', fund_filter) if t.strip()]
+            for c in selected_codes:
+                if c in FRAGMENTS: query_fragments.append(FRAGMENTS[c])
+        
+        # 2. Check query (highest relevance)
+        for code, slug in FRAGMENTS.items():
+            readable = slug.replace("-", " ")
+            if code.lower() in low_query or readable in low_query:
+                if slug not in query_fragments: query_fragments.append(slug)
+        
+        # 3. Check answer (secondary relevance, but ignore trailing canned disclaimer)
+        # Only check first 300 chars of answer to avoid detecting funds in the suggestion footer
+        answer_body = low_answer[:300]
+        for code, slug in FRAGMENTS.items():
+            readable = slug.replace("-", " ")
+            if code.lower() in answer_body or readable in answer_body:
+                if slug not in query_fragments and slug not in answer_fragments: 
+                    answer_fragments.append(slug)
+
+        # SEVERE SAFETY: If this is a disclaimer / fallback, clear ALL sources
+        DISCLAIMER_PHRASE = "I'm INDy, your Parag Parikh Mutual Fund assistant!"
+        is_fallback = (DISCLAIMER_PHRASE in cleaned) and (len(cleaned) < 300) and not bool(re.search(r'[\d\%₹]|rs\.', cleaned, re.IGNORECASE))
+        
+        if is_fallback:
             final_source_urls = []
         else:
-            # Relaxed filters: Allow schemes and faqs as they are primary fund fact sources
-            filtered = source_urls 
+            # Seed specific URLs
+            active_frags = query_fragments + answer_fragments
+            seeded_urls = []
+            for frag in active_frags:
+                seeded_urls.append(f"https://amc.ppfas.com/schemes/{frag}/")
+                if frag in FUND_SLUG_MAP:
+                    seeded_urls.append(f"https://www.indmoney.com/mutual-funds/{FUND_SLUG_MAP[frag]}")
+
+            all_candidates = list(source_urls) + seeded_urls
+
+            def is_relevant(url: str) -> bool:
+                low_url = url.lower()
+                if any(f in low_url for f in active_frags): return True
+                if "/faqs/" in low_url or "sid" in low_url: return True
+                if "download-cas" in low_url: 
+                    return "cas" in low_query or "statement" in low_query
+                # Tighten general links: only if no frags detected
+                if not active_frags and ("amc.ppfas.com" in low_url or "amfiindia.com" in low_url): return True
+                return False
+
+            def sort_key(url: str) -> int:
+                low_url = url.lower()
+                # Priority 0: PPFAS Scheme for Query Fund
+                if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in query_fragments): return 0
+                # Priority 1: IndMoney for Query Fund
+                if "indmoney.com" in low_url and any(f in low_url for f in query_fragments): return 1
+                # Priority 2: PPFAS Scheme for Answer Fund (but not Query fund)
+                if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in answer_fragments): return 2
+                # Priority 3: General FAQs
+                if "/faqs/" in low_url or "sid" in low_url: return 3
+                # Priority 4: IndMoney for Answer Fund
+                if "indmoney.com" in low_url and any(f in low_url for f in answer_fragments): return 4
+                return 5
+
+            filtered_sources = sorted([u for u in all_candidates if is_relevant(u)], key=sort_key)
             
-            # Fund-relevance filter (now with auto-detection from answer text)
-            import re as pyre
-            FRAGMENTS = {
-                "PPFCF": "flexi-cap",
-                "PPTSF": "tax-saver",
-                "PPCHF": "conservative-hybrid",
-                "PPLF":  "liquid-fund"
-            }
+            # Deduplicate and Cap
+            seen = set()
+            for u in filtered_sources:
+                norm = u.lower().rstrip("/")
+                if norm not in seen:
+                    seen.add(norm)
+                    final_source_urls.append(u)
             
-            # Use filters if UI selected them, otherwise look for clues in the answer body
-            active_fragments = []
-            if fund_filter:
-                selected_codes = [t.strip().upper() for t in pyre.split(r'[,·|]', fund_filter) if t.strip()]
-                active_fragments = [FRAGMENTS.get(c, c.lower()) for c in selected_codes]
-            else:
-                # Auto-detect mentioned funds from the actual response body
-                for code, frag in FRAGMENTS.items():
-                    # Check for code or descriptive slug in the cleaned response
-                    slug_readable = frag.replace("-", " ")
-                    if f"{code.lower()}" in cleaned.lower() or slug_readable in cleaned.lower():
-                        active_fragments.append(frag)
-
-            if active_fragments:
-                def is_relevant(url):
-                    low_url = url.lower()
-                    # Priority 1: Specific scheme page (e.g. /parag-parikh-flexi-cap-fund/)
-                    # If the URL contains a slug that matches an active fragment, it's highly relevant.
-                    if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in active_fragments):
-                        return True
-                    # Priority 2: FAQ or SID page (general but relevant)
-                    if any(p in low_url for p in ["faq", "sid", "kim"]):
-                        return True
-                    # Fallback: AMFI links for general knowledge (CAS, etc.)
-                    if "amfiindia" in low_url:
-                        return True
-                    # IndMoney links only if they match the fragment exactly
-                    if "indmoney.com" in low_url:
-                        return any(frag in low_url for frag in active_fragments)
-                    
-                    return False
-
-                # Sort sources to put the most specific ones first
-                def sort_key(url):
-                    low_url = url.lower()
-                    if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in active_fragments):
-                        return 0 # Top priority
-                    if "amc.ppfas.com/faqs/" in low_url:
-                        return 1
-                    return 2
-
-                final_source_urls = sorted([url for url in filtered if is_relevant(url)], key=sort_key)
-                
-                # Deduplicate and Cap at 3
-                seen = set()
-                deduped = []
-                for u in final_source_urls:
-                    if u not in seen:
-                        seen.add(u)
-                        deduped.append(u)
-                final_source_urls = deduped[:3]
-                
-                # If we filtered everything out but have potential sources, keep the first one as safety
-                if not final_source_urls and filtered:
-                    final_source_urls = [filtered[0]]
-            else:
-                final_source_urls = filtered[:3]
+            final_source_urls = final_source_urls[:3]
 
         return GenerationResult(
             answer=cleaned,
@@ -404,10 +423,14 @@ class RAGGenerator:
             elapsed_ms=elapsed,
         )
 
-    def _call_llm(self, prompt: str) -> str:
+    async def _call_llm(self, prompt: str) -> str:
         if self._client is None:
             self._client = self._init_groq_client()
 
+        # The groq client .create is blocking if not using AsyncGroq, 
+        # but the user requested native async httpx for nav. 
+        # For LLM, we should ideally use AsyncGroq.
+        
         chat_completion = self._client.chat.completions.create(  # type: ignore
             messages=[{"role": "user", "content": prompt}],
             model=self._model_name,

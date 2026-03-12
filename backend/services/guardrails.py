@@ -261,13 +261,17 @@ class PostFilter:
         # Detect if this is a hard fallback / no-data response — skip source injection if so.
         # If it contains numeric symbols (%, RS, ₹) it likely has real data even with a disclaimer.
         # detect if this is a hard fallback / no-data response — skip source injection if so.
-        # If it contains numeric symbols (%, RS, ₹) it likely has real data.
-        FALLBACK_PHRASES = ("couldn't find relevant data", "no information available", "no data found")
+        # If it contains numeric symbols (%, RS, ₹) it likely has real data even with a disclaimer.
+        FALLBACK_PHRASES = ("couldn't find relevant data", "no information available", "no data found", "not opinions or advice")
         contains_data = bool(re.search(r'[\d\%₹]|rs\.', body_text, re.IGNORECASE))
         is_hard_refusal = any(p.lower() in raw_text.lower() for p in FALLBACK_PHRASES)
         
-        # It's only a fallback if it refuses AND doesn't seem to have numeric data
-        is_fallback = is_hard_refusal and not contains_data
+        # New: If the LLM ONLY provided the mandatory disclaimer, it's a fallback.
+        DISCLAIMER_START = "I'm INDy, your Parag Parikh Mutual Fund assistant!"
+        is_disclaimer_only = (DISCLAIMER_START in body_text) and (len(body_text) < 250) and not contains_data
+        
+        # It's only a fallback if it refuses OR is just a disclaimer, AND doesn't seem to have numeric data
+        is_fallback = (is_hard_refusal or is_disclaimer_only) and not contains_data
         
         # If body_text became empty after URL stripping, but raw_text wasn't empty, 
         # restore it (we'd rather have URLs than nothing)
@@ -276,7 +280,6 @@ class PostFilter:
         
         # New Safety: If the disclaimer IS present but it's NOT a fallback (i.e. we have real data),
         # strip the disclaimer and any transitional text like "However, ..." or "Based on..."
-        DISCLAIMER_START = "I'm INDy, your Parag Parikh Mutual Fund assistant!"
         if not is_fallback and body_text.startswith(DISCLAIMER_START):
             # Safer stripping: Just remove the specific disclaimer text and any immediate intro transitions
             # that often follow it (e.g. "Based on the context, here is...")

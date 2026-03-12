@@ -5,10 +5,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 async def fetch_live_nav(fund_code: str) -> str:
-    """Fetches live NAV from AMFI or the AMC site.
-    We will map fund codes to AMFI scheme codes for reliable API fetching.
-    """
-    # AMFI API URL: https://www.amfiindia.com/spages/NAVAll.txt
+    """Fetches live NAV from AMFI portal using async httpx."""
+    # AMFI Portal URL
+    AMFI_URL = "https://portal.amfiindia.com/spages/NAVAll.txt"
+    
     amfi_codes = {
         "PPFCF": "122639", # Parag Parikh Flexi Cap Fund - Direct Plan - Growth
         "PPTSF": "147481", # Parag Parikh ELSS Tax Saver Fund- Direct Growth
@@ -28,12 +28,10 @@ async def fetch_live_nav(fund_code: str) -> str:
         return ""
 
     try:
-        import requests
-        import asyncio
-        
-        def _fetch():
-            resp = requests.get("https://www.amfiindia.com/spages/NAVAll.txt", headers={"User-Agent": "Mozilla/5.0"}, timeout=5.0)
+        async with httpx.AsyncClient(follow_redirects=True, timeout=10.0) as client:
+            resp = await client.get(AMFI_URL, headers={"User-Agent": "Mozilla/5.0"})
             if resp.status_code == 200:
+                # Use .text to handle encoding
                 lines = resp.text.split('\n')
                 for line in lines:
                     if line.startswith(code):
@@ -43,10 +41,9 @@ async def fetch_live_nav(fund_code: str) -> str:
                             date = parts[5].strip()
                             display_name = full_names.get(fund_code, fund_code)
                             return f"The current NAV (Net Asset Value) of {display_name} as of {date} is ₹{nav_value}."
-            return ""
-            
-        return await asyncio.to_thread(_fetch)
-        
+            else:
+                logger.error(f"AMFI returned status {resp.status_code}")
+                
     except Exception as e:
         logger.error(f"Failed to fetch NAV for {fund_code}: {e}")
     
