@@ -255,7 +255,23 @@ class RAGGenerator:
             augmented_query = query
 
         t_retrieve_start = time.monotonic()
-        results = self._retriever.retrieve(augmented_query, top_k=self._top_k, fund_filter=fund_filter)
+        
+        is_plural_query = "funds" in query.lower() or "all fund" in query.lower()
+        
+        results = []
+        if is_plural_query and not fund_filter:
+            # Emergency Fix: Perform separate retrievals for each fund to guarantee coverage
+            fund_names = ["Parag Parikh Flexi Cap Fund", "Parag Parikh ELSS Tax Saver Fund", 
+                          "Parag Parikh Conservative Hybrid Fund", "Parag Parikh Liquid Fund"]
+            for fname in fund_names:
+                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=2) # Get top 2 for each
+                results.extend(fund_results)
+            # Add general query results too
+            general_results = self._retriever.retrieve(query, top_k=2)
+            results.extend(general_results)
+        else:
+            results = self._retriever.retrieve(augmented_query, top_k=self._top_k, fund_filter=fund_filter)
+            
         t_retrieve = (time.monotonic() - t_retrieve_start) * 1000
         source_urls = self._retriever.collect_source_urls(results[: self._context_k])
 
@@ -270,23 +286,18 @@ class RAGGenerator:
             )
 
         context_chunks = results[: self._context_k]
-        context_text = "\n\n".join([f"Source: {c.source_url}\nContent: {c.text}" for c in context_chunks])
+        context_str = "\n\n".join(f"[{i+1}] {r.format_for_prompt()}" for i, r in enumerate(context_chunks))
         
-        # Enhanced Prompt for multi-fund support
-        multi_fund_instruction = ""
-        is_plural_query = "funds" in query.lower() or "all fund" in query.lower()
-        if is_plural_query:
-            multi_fund_instruction = "\nIMPORTANT: provide a consolidated answer covering ALL 4 schemes: Parag Parikh Flexi Cap Fund, Parag Parikh ELSS Tax Saver Fund, Parag Parikh Conservative Hybrid Fund, and Parag Parikh Liquid Fund."
-
-        prompt = f"""You are INDy, the official Parag Parikh Mutual Fund assistant. 
-Use ONLY the following context to answer the user query. {multi_fund_instruction}
-If the context doesn't contain the answer for a specific fund, state that clearly.
-
-Context:
-{context_text}
-
-Query: {query}
-Answer:"""
+        # Restore original prompt structure for stability
+        if fund_filter:
+            import re as pyre
+            selected_funds = pyre.split(r'[,·|]', fund_filter)
+            display_filter = ", ".join([f.strip() for f in selected_funds if f.strip()])
+            fund_scope_str = f"STRICT FILTER: ONLY include data for {display_filter}."
+        else:
+            fund_scope_str = "ALL FUNDS (no specific fund filter)"
+            
+        prompt = SYSTEM_PROMPT.format(context=context_str, query=query, fund_scope=fund_scope_str)
 
         # Step 4 — Call LLM (Groq)
         t_llm_start = time.monotonic()

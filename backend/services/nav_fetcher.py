@@ -27,31 +27,43 @@ async def fetch_live_nav(fund_code: str) -> str:
     if not code:
         return ""
 
-    try:
-        async with httpx.AsyncClient(follow_redirects=True, timeout=10.0) as client:
-            resp = await client.get(AMFI_URL, headers={"User-Agent": "Mozilla/5.0"})
-            if resp.status_code == 200:
-                # AMFI uses latin-1 or similar; explicitly set to avoid decode issues on Render
-                resp.encoding = 'utf-8' # Try UTF-8 first, fallback to latin-1
-                try:
-                    text = resp.text
-                except UnicodeDecodeError:
-                    resp.encoding = 'latin-1'
-                    text = resp.text
-                
-                lines = text.split('\n')
-                for line in lines:
-                    if line.startswith(code):
-                        parts = line.split(';')
-                        if len(parts) >= 6:
-                            nav_value = parts[4]
-                            date = parts[5].strip()
-                            display_name = full_names.get(fund_code, fund_code)
-                            return f"The current NAV (Net Asset Value) of {display_name} as of {date} is ₹{nav_value}."
-            else:
-                logger.error(f"AMFI returned status {resp.status_code}")
-                
-    except Exception as e:
-        logger.error(f"Failed to fetch NAV for {fund_code}: {e}")
-    
-    return ""
+    import asyncio
+
+    # Retry parameters
+    MAX_ATTEMPTS = 3
+    TIMEOUT = 20.0
+
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        try:
+            async with httpx.AsyncClient(follow_redirects=True, timeout=TIMEOUT) as client:
+                resp = await client.get(AMFI_URL, headers={"User-Agent": "Mozilla/5.0"}, follow_redirects=True)
+                if resp.status_code == 200:
+                    # AMFI uses latin-1 or similar; explicitly set to avoid decode issues on Render
+                    resp.encoding = 'utf-8' # Try UTF-8 first, fallback to latin-1
+                    try:
+                        text = resp.text
+                    except UnicodeDecodeError:
+                        resp.encoding = 'latin-1'
+                        text = resp.text
+                    
+                    lines = text.split('\n')
+                    for line in lines:
+                        if line.startswith(code):
+                            parts = line.split(';')
+                            if len(parts) >= 6:
+                                nav_value = parts[4]
+                                date = parts[5].strip()
+                                display_name = full_names.get(fund_code, fund_code)
+                                return f"The current NAV (Net Asset Value) of {display_name} as of {date} is ₹{nav_value}."
+                    
+                    logger.warning(f"Fund code {code} not found in AMFI list on attempt {attempt}")
+                else:
+                    logger.error(f"AMFI returned status {resp.status_code} on attempt {attempt}")
+                    
+        except Exception as e:
+            logger.error(f"Attempt {attempt} failed to fetch NAV for {fund_code}: {e}")
+        
+        if attempt < MAX_ATTEMPTS:
+            await asyncio.sleep(1) # Wait before retry
+
+    return f"Couldn't reach the server for {fund_code}." if fund_code else ""
