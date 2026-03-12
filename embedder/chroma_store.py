@@ -78,7 +78,16 @@ class ChromaStore:
             settings=Settings(anonymized_telemetry=False),
         )
 
-        ef_kwargs = {"embedding_function": embedding_fn} if embedding_fn else {}
+        if embedding_fn is None:
+            # Prevent ChromaDB from auto-loading all-MiniLM-L6-v2
+            # We provide a dummy embedding function that just returns zeros
+            from chromadb.utils.embedding_functions import EmbeddingFunction # type: ignore
+            class DummyEmbeddingFunction(EmbeddingFunction):
+                def __call__(self, input: chromadb.Documents) -> chromadb.Embeddings:
+                    return [[0.0] * 768 for _ in input]
+            embedding_fn = DummyEmbeddingFunction()
+
+        ef_kwargs = {"embedding_function": embedding_fn}
 
         self._col_scheme = self._client.get_or_create_collection(
             name=COLLECTION_SCHEME,
