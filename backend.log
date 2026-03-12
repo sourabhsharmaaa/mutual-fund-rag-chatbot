@@ -1,0 +1,108 @@
+INFO:     Will watch for changes in these directories: ['/Users/sourabh/Desktop/ragchatbot/mutual-fund-rag-chatbot']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [50743] using WatchFiles
+INFO:     Started server process [50807]
+INFO:     Waiting for application startup.
+/Users/sourabh/Desktop/ragchatbot/mutual-fund-rag-chatbot/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60485 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61431 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61431 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61431 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61562 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61562 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61988 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+INFO:     127.0.0.1:61988 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62579 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62626 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62657 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64235 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64657 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64657 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49850 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49948 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49948 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51882 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51882 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52428 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52776 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53088 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53140 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64630 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64630 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64632 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64632 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64632 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64632 - "POST /api/chat HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'backend/services/generator.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50807]
+INFO:     Started server process [61261]
+INFO:     Waiting for application startup.
+/Users/sourabh/Desktop/ragchatbot/mutual-fund-rag-chatbot/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'backend/services/generator.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [61261]
+INFO:     Started server process [61282]
+INFO:     Waiting for application startup.
+/Users/sourabh/Desktop/ragchatbot/mutual-fund-rag-chatbot/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+INFO:     Application startup complete.
+INFO:     127.0.0.1:63946 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+INFO:     127.0.0.1:63946 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63948 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63948 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63948 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63948 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64148 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64248 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64299 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51554 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52056 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52262 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52262 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52262 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59130 - "OPTIONS /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59130 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "POST /api/chat HTTP/1.1" 200 OK

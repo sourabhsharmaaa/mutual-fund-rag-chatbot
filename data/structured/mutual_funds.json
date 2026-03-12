@@ -1,0 +1,197 @@
+{
+  "scraped_at": "2026-03-03T12:32:19.565249+05:30",
+  "total_urls_attempted": 15,
+  "total_urls_ok": 14,
+  "schemes": [
+    {
+      "scheme_name": "Parag Parikh Flexi Cap Fund",
+      "short_name": "PPFCF",
+      "category": "Flexi Cap",
+      "lock_in_period": "No lock-in period",
+      "riskometer": "Very High",
+      "exit_load": "2% if redeemed within 365 days; 1% if redeemed between 365 and 730 days; Nil after 730 days",
+      "benchmark": "NIFTY 500 TRI (Primary); NIFTY 50 TRI (Additional)",
+      "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
+      "min_lumpsum_amount": "₹1,000",
+      "source_urls": [
+        "https://www.indmoney.com/mutual-funds/parag-parikh-flexi-cap-direct-growth-3229"
+      ],
+      "expense_ratio": "0.63%",
+      "min_sip_amount": "₹1,000",
+      "nav": "90.43",
+      "nav_as_of": "10-Mar-2026",
+      "investment_objective": "To seek to generate long-term capital growth from an actively managed portfolio primarily of Equity and Equity related Securities. Its investment strategy is to invest in a few stocks which conform to its selection criteria.",
+      "sid_link": "/downloads/ConfirmCitizenship.php"
+    },
+    {
+      "scheme_name": "Parag Parikh ELSS Tax Saver Fund",
+      "short_name": "PPTSF",
+      "category": "ELSS",
+      "lock_in_period": "3 years (mandatory ELSS lock-in)",
+      "riskometer": "Very High",
+      "exit_load": "Nil (ELSS — mandatory 3-year lock-in, redemption not permitted before that)",
+      "benchmark": "NIFTY 500 TRI (Primary); NIFTY 50 TRI (Additional)",
+      "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
+      "min_lumpsum_amount": "₹500",
+      "source_urls": [
+        "https://www.indmoney.com/mutual-funds/parag-parikh-elss-tax-saver-fund-direct-growth-1004710"
+      ],
+      "expense_ratio": "0.70%",
+      "min_sip_amount": "₹500",
+      "nav": "32.12",
+      "nav_as_of": "10-Mar-2026",
+      "investment_objective": "To generate long-term capital appreciation by investing predominantly in equity and equity-related securities.",
+      "sid_link": "/downloads/ConfirmCitizenship.php"
+    },
+    {
+      "scheme_name": "Parag Parikh Conservative Hybrid Fund",
+      "short_name": "PPCHF",
+      "category": "Conservative Hybrid",
+      "lock_in_period": "No lock-in period",
+      "riskometer": "Moderately High",
+      "exit_load": "1% if redeemed within 365 days; Nil after 365 days",
+      "benchmark": "CRISIL Hybrid 85+15 Conservative Index",
+      "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta, Rukun Tarachandani",
+      "min_lumpsum_amount": "₹1,000",
+      "source_urls": [
+        "https://www.indmoney.com/mutual-funds/parag-parikh-conservative-hybrid-fund-direct-growth-1006619"
+      ],
+      "expense_ratio": "0.98%",
+      "min_sip_amount": "₹1,000",
+      "nav": "15.81",
+      "nav_as_of": "10-Mar-2026",
+      "date_of_allotment": "26-May-2021",
+      "investment_objective": "To generate regular income through investments predominantly in debt and money market instruments. The\n            Scheme also seeks to generate long term capital appreciation from the portion of equity investments under\n            the scheme.\n\n\n            \n\n            However, there is no assurance or guarantee that the investment objective of the Scheme will be achieved and\n            the Scheme does not assure or guarantee any returns.",
+      "sid_link": "/downloads/ConfirmCitizenship.php"
+    },
+    {
+      "scheme_name": "Parag Parikh Liquid Fund",
+      "short_name": "PPLF",
+      "category": "Liquid",
+      "lock_in_period": "No lock-in period",
+      "riskometer": "Low to Moderate",
+      "exit_load": "Graded exit load: 0.0070% on Day 1 down to 0.0045% on Day 6; Nil from Day 7 onwards",
+      "benchmark": "NIFTY Liquid Fund Index",
+      "fund_manager": "Raj Mehta, Raunak Onkar",
+      "min_lumpsum_amount": "₹5,000",
+      "source_urls": [
+        "https://www.indmoney.com/mutual-funds/parag-parikh-liquid-fund-direct-growth-1214"
+      ],
+      "expense_ratio": "0.18%",
+      "min_sip_amount": "₹1,000",
+      "nav": "1518.16",
+      "nav_as_of": "10-Mar-2026",
+      "investment_objective": "To generate reasonable returns, commensurate with low risk and a high degree of liquidity, from a portfolio constituted of money market and debt instruments.",
+      "sid_link": "/downloads/ConfirmCitizenship.php"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Is this scheme suitable for me?",
+      "answer": "Parag Parikh Flexi Cap Fund (PPFCF) is suitable for all investors who are willing to commit their investible surplus to the stockmarket for a period of five years or more and are seeking a mutual fund scheme which adheres to the time-tested principles of value investing. Our portfolio only includes those stocks which conform to our strict stock selection filters. Robust and disciplined processes guide our actions. We ignore factors such as market momentum, current market fancies, etc. We also steadfastly follow a buy-and-hold approach, which automatically results in a low churn ratio and consequently results in reduced transaction costs for our investors.",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    },
+    {
+      "question": "What is the asset allocation pattern for PPFCF?",
+      "answer": "Under normal circumstances the scheme corpus will be allocated as under: Type of Security\tMinimum Allocation (% of net assets)\tMaximum Allocation (% of net assets)\tRisk Profile Equity and equity related instruments\t65\t100\tMedium to high Debt Securities, Money Market Securities\t0\t35\tLow to medium Foreign Equity and equity related instruments\t0\t35\tMedium to high Debt Securities (including Units) issued by REITs & InvITs\t0\t10\tMedium to high",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    },
+    {
+      "question": "What is the benchmark of the fund?",
+      "answer": "PPFCF's performance would be primarily benchmarked against the NIFTY 500 TRI with the NIFTY 50 TRI serving as an additional benchmark. Both these indices – which are a broad based measurement of changes in the stock market - are used for comparative purposes only, and is not meant to be indicative of the Fund’s performance, asset composition or volatility. Given the wide scope of securities held by these three indices, it should be inherently less volatile. Our results may differ markedly from those of the three indices in either up or down market trends.",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    },
+    {
+      "question": "What are the different plans/options available in the PPFCF?",
+      "answer": "Currently, the scheme offers only the Growth Option.",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    },
+    {
+      "question": "What is the scheme's expense ratio?",
+      "answer": "Please visit this link to view the latest Ratio",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    },
+    {
+      "question": "Who can invest in PPFCF?",
+      "answer": "Almost anyone can invest in the PPFCF including... Resident adult individuals either singly or jointly (not exceeding three);or on an Anyone or Survivor basis. Karta of Hindu Undivided Family (HUF). Minors through parent/legal guardian. Partnership Firms. Companies, Bodies Corporate, Public Sector Undertakings, Association of Persons or bodies of individuals and Societies registered under the Societies Registration Act,1860. Banks & Financial Institutions. Mutual Funds registered with SEBI. Religious and Charitable Trusts, Wakfs or endowments of private trusts (subject to receipt of necessary approvals as required) and Private trusts authorized to invest in mutual fund schemes under their trust deeds.",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    },
+    {
+      "question": "Can a new investor invest online?",
+      "answer": "Yes, investor can create folios online, subject to them being KRA compliant. Know more here.",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    },
+    {
+      "question": "How can I invest in PPFCF?",
+      "answer": "You may choose from any of the following options: Online options: Mutual Fund Platforms such MFCentral, BSE StAR MF, Scripbox, Groww, Zerodha Coin, etc. For Offline Investors Investors who would like to invest in the PPFCF offline can download the Application form, complete it and submit it to any of the Collection Centers along with a cheque/demand draft, payable locally payable to \"Parag Parikh Flexi Cap Fund\", along with a certified copy of their PAN Card copy and KRA Acknowledgement letter. Organizations interested in investing in PPFCF can refer to the checklist of documents required at the time of Offline Investing in the scheme.",
+      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
+    }
+  ],
+  "general_knowledge": {
+    "riskometer_definition": "NA",
+    "expense_ratio_definition": "NA",
+    "cas_download_procedure": "iative, come together to provide a facility for mutual fund investors to get a consolidated account statement (CAS) showing their current holdings across all mutual funds electronically via e-CAS through a mail-back service.\nInvestors who have registered their email address with mutual funds can avail this facility and receive a soft copy of the e-CAS showing their current holdings across all mutual funds in their registered email address.\nThe following are the URLs for requesting for the e-CAS from CAMS and KFintech:\nCAMS: https://www.camsonline.com/Investors/Statements/Consolidated-Account-Statement\nKFintech: https://mfs.kfintech.com/investor/General/ConsolidatedAccountStatement\nIn addition to the above, investors can also view and download their mutual fund Portfolio & CAS on the portal of MFCentral (https://www.mfcentral.com), a collaborative online services hub launched jointly by K",
+    "risk_levels": [],
+    "source_urls": [
+      "https://www.amfiindia.com/online-center/download-cas",
+      "https://www.amfiindia.com/online-center/risk-o-meter",
+      "https://www.amfiindia.com/investor/knowledge-center-info?zoneName=expenseRatio"
+    ]
+  },
+  "taxation": {
+    "ltcg_rate": "NA",
+    "ltcg_details": "NA",
+    "stcg_rate": "NA",
+    "stcg_details": "NA",
+    "elss_tax_benefit": "NA",
+    "summary": "NA",
+    "source_url": "NA"
+  },
+  "amc_overview": {
+    "amc_name": "Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
+    "aum_total": "NA",
+    "schemes_listed": [
+      "Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
+      "Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
+      "PPFAS Asset Management Private Ltd. manages Parag Parikh Mutual Fund, established in 2012 by Late Parag Parikh. Also known as PPFAS Mutual Fund, has a stand-out and unique approach towards managing funds.",
+      "They manage a total of 5 mutual fund schemes, including 2 equity, 1 debt, and 3 hybrid schemes. As of 2024, the AUM of Parag Parikh Mutual Fund is Rs. 62207 crore. The AMC's key people include Neil Parag Parikh, the Chairman and CEO, and Rajeev Thakkar, the Chief Information Officer (CIO) and Equity Fund Manager. The asset management company chose a tortoise named Professor Tortoise or ProTo as its logo because it represents wisdom and experience, which aligns with their investing philosophy.",
+      "Best Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)s",
+      "Parag Parikh Flexi Cap Direct Growth",
+      "Parag Parikh ELSS Tax Saver Fund Direct Growth",
+      "Parag Parikh Large Cap Fund Direct Growth",
+      "Top Fund Managers of Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund)",
+      "Parag Parikh Large Cap Fund Direct Growth",
+      "Parag Parikh ELSS Tax Saver Fund Direct Growth",
+      "Parag Parikh Flexi Cap Direct Growth",
+      "Parag Parikh Conservative Hybrid Fund Direct Growth",
+      "Parag Parikh Arbitrage Fund Direct Growth",
+      "Parag Parikh Dynamic Asset Allocation Fund Direct Growth",
+      "Compare Parag Parikh Mutual Fund (Also known as PPFAS Mutual Fund) with other AMCs",
+      "Parag Parikh (PPFAS) Mutual Funds",
+      "After you have understood the details about Parag Parikh Mutual Fund, it is time for you to start your investment process with INDmoney. Below are some simple steps to follow to start your mutual fund's investment journey with us.",
+      "Step 2: Once your Free investment account is ready, you can either search for Parag Parikh Mutual Fund or go to the mutual fund section.",
+      "Step 3: Choose any Parag Parikh Mutual Fund by looking at aspects like past returns, volatility, downside capture ratio, AUM, Expense ratios and underlying stocks and sectors.",
+      "Step 4: You can choose to set up SIP in any Parag Parikh Mutual Fund or even invest as a lump sum. Once you are on the individual Parag Parikh Mutual Fund page, click \"One-time\" for lump sum investment or \"SIP\" for a systematic investment plan.",
+      "Step 6: Set up payments. If you choose to set up SIP in any Parag Parikh Mutual Fund, you can do a free automatic pay set-up via bank mandate or UPI. If you choose to invest in a lump sum (one-time) then you can pay via UPI, net banking, NEFT or RTGS.",
+      "Parag Parikh Mutual Fund application form",
+      "What is the minimum investment amount required for Parag Parikh Flexi Cap Mutual Fund Direct-Growth?",
+      "Rs. 1000 is the minimum amount for lumpsum investment and Rs. 1000 is the minimum SIP amount required for Parag Parikh Flexi Cap Mutual Fund Direct-Growth",
+      "How to calculate Parag Parikh Mutual Fund SIP ?",
+      "Parag Parikh Mutual Funds  SIP Calculator.",
+      "What are the three top-performing Parag Parikh Mutual Funds?",
+      "Parag Parikh Flexi Cap Direct Growth",
+      "Parag Parikh ELSS Tax Saver Fund Direct Growth",
+      "Parag Parikh Liquid Fund Direct Growth",
+      "How can I get an account statement for my investment in Parag Parikh Mutual Fund?",
+      "Parag Parikh Mutual Fund",
+      "How safe are investments in Parag Parikh Mutual Fund?",
+      "Parag Parikh Mutual Fund",
+      "Parag Parikh Mutual Fund",
+      "How to redeem a Parag Parikh mutual fund?",
+      "Parag Parikh Mutual Fund",
+      "Parag Parikh Flexi Cap Fund",
+      "Parag Parikh Mutual Fund"
+    ],
+    "source_url": "https://www.indmoney.com/mutual-funds/amc/parag-parikh-mutual-fund"
+  }
+}

@@ -1,0 +1,35 @@
+# === API Keys & Secrets ===
+.env
+.env.local
+.env.*.local
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# === Vector Store (auto-generated, can be rebuilt) ===
+vector_store/
+
+# === Scraped raw data (auto-generated) ===
+data/raw/
+
+# === Node / Frontend ===
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# === macOS ===
+.DS_Store
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,7 @@
+SAMPLE QUERIES TO TEST THE RAG ENGINE:
+
+1. "What is the expense ratio of Parag Parikh Flexi Cap?"
+2. "How can I download my consolidated account statement?"
+3. "Should I invest my money in the Tax Saver fund right now?"
+4. "What is the lock-in period for the ELSS fund?"
+5. "Who manages the Liquid fund?"
