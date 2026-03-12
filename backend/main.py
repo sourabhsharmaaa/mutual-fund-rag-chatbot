@@ -5,13 +5,20 @@ import os
 
 app = FastAPI(title="PPFAS RAG Backend API", version="1.0.0")
 
-# Allow CORS for local React development
+# Allow CORS for local React development + Vercel production
 origins = [
     "http://localhost:5173", # Vite default
     "http://localhost:3000",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:3000",
 ]
+
+# If FRONTEND_URL is set (e.g., on Render), add it to allowed origins
+frontend_url = os.environ.get("FRONTEND_URL", "").strip()
+if frontend_url:
+    origins.append(frontend_url)
+    # Also allow without trailing slash
+    origins.append(frontend_url.rstrip("/"))
 
 app.add_middleware(
     CORSMiddleware,
