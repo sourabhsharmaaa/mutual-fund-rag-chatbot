@@ -199,6 +199,7 @@ SCHEME_META: dict[str, dict] = {
         "benchmark":    "NIFTY 500 TRI (Primary); NIFTY 50 TRI (Additional)",
         "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
         "min_lumpsum_amount": "₹1,000",
+        "expense_ratio": "0.63%",
         "source_urls":  [],
     },
     "PPTSF": {
@@ -211,6 +212,7 @@ SCHEME_META: dict[str, dict] = {
         "benchmark":    "NIFTY 500 TRI (Primary); NIFTY 50 TRI (Additional)",
         "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
         "min_lumpsum_amount": "₹500",
+        "expense_ratio": "0.62%",
         "source_urls":  [],
     },
     "PPCHF": {
@@ -223,6 +225,7 @@ SCHEME_META: dict[str, dict] = {
         "benchmark":    "CRISIL Hybrid 85+15 Conservative Index",
         "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta, Rukun Tarachandani",
         "min_lumpsum_amount": "₹1,000",
+        "expense_ratio": "0.34%",
         "source_urls":  [],
     },
     "PPLF": {
@@ -235,6 +238,7 @@ SCHEME_META: dict[str, dict] = {
         "benchmark":    "NIFTY Liquid Fund Index",
         "fund_manager": "Raj Mehta, Raunak Onkar",
         "min_lumpsum_amount": "₹5,000",
+        "expense_ratio": "0.11%",
         "source_urls":  [],
     },
 }
@@ -347,6 +351,7 @@ class ScraperRunner:
                 "benchmark": meta.get("benchmark", "NA"),
                 "fund_manager": meta.get("fund_manager", "NA"),
                 "min_lumpsum_amount": meta.get("min_lumpsum_amount", "NA"),
+                "expense_ratio": meta.get("expense_ratio", "NA"),
             }
 
         faqs_combined: list[dict] = []
@@ -410,6 +415,10 @@ class ScraperRunner:
                 for data_key, scheme_field in field_map.items():
                     val = data.get(data_key)
                     if val and val != "NA" and sd.get(scheme_field) in ("NA", None, ""):
+                        # Special handling: avoid overwriting valid numbers with "Refer TER page" placeholders
+                        if scheme_field == "expense_ratio":
+                            if "Refer" in val or "visit" in val.lower() or "ratio" in val.lower():
+                                continue
                         # Special lock_in handling — don't overwrite curated value
                         if scheme_field == "lock_in_period" and sd["lock_in_period"] != "NA":
                             continue
