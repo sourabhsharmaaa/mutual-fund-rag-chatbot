@@ -5,10 +5,10 @@ from backend.services.generator import get_generator
 router = APIRouter()
 
 @router.post("/chat", response_model=ChatResponse)
-def generate_chat_response(request: ChatRequest):
+async def generate_chat_response(request: ChatRequest):
     try:
         generator = get_generator()
-        result = generator.generate(
+        result = await generator.generate(
             query=request.query,
             fund_filter=request.scheme_filter
         )

@@ -136,7 +136,7 @@ class RAGGenerator:
 
     # ... (generate method unchanged except for renaming _call_gemini to _call_llm) ...
 
-    def generate(
+    async def generate(
         self,
         query: str,
         fund_filter: str | None = None,
@@ -180,8 +180,8 @@ class RAGGenerator:
                 
             if target_fund:
                 try:
-                    # RAG operates synchronously in this setup, so we run the async fetcher
-                    nav_text = asyncio.run(fetch_live_nav(target_fund))
+                    # Async await for NAV fetcher
+                    nav_text = await fetch_live_nav(target_fund)
                     if nav_text:
                         elapsed = (time.monotonic() - t0) * 1000
                         sources = []
@@ -212,7 +212,7 @@ class RAGGenerator:
                         ]
                         return await asyncio.gather(*nav_futures)
                     
-                    nav_results = asyncio.run(fetch_all())
+                    nav_results = await fetch_all()
                     nav_text = "\n".join(r for r in nav_results if r)  # type: ignore
                     
                     if nav_text:
@@ -352,18 +352,47 @@ class RAGGenerator:
             if active_fragments:
                 def is_relevant(url):
                     low_url = url.lower()
-                    # Always include non-INDmoney links (AMC links, AMFI links) as context fallback
-                    if "indmoney.com" not in low_url: return True
-                    # Only include INDmoney links if they match the active/detected funds
-                    return any(frag in low_url for frag in active_fragments)
+                    # Priority 1: Specific scheme page (e.g. /parag-parikh-flexi-cap-fund/)
+                    # If the URL contains a slug that matches an active fragment, it's highly relevant.
+                    if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in active_fragments):
+                        return True
+                    # Priority 2: FAQ or SID page (general but relevant)
+                    if any(p in low_url for p in ["faq", "sid", "kim"]):
+                        return True
+                    # Fallback: AMFI links for general knowledge (CAS, etc.)
+                    if "amfiindia" in low_url:
+                        return True
+                    # IndMoney links only if they match the fragment exactly
+                    if "indmoney.com" in low_url:
+                        return any(frag in low_url for frag in active_fragments)
+                    
+                    return False
 
-                final_source_urls = [url for url in filtered if is_relevant(url)]
+                # Sort sources to put the most specific ones first
+                def sort_key(url):
+                    low_url = url.lower()
+                    if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in active_fragments):
+                        return 0 # Top priority
+                    if "amc.ppfas.com/faqs/" in low_url:
+                        return 1
+                    return 2
+
+                final_source_urls = sorted([url for url in filtered if is_relevant(url)], key=sort_key)
+                
+                # Deduplicate and Cap at 3
+                seen = set()
+                deduped = []
+                for u in final_source_urls:
+                    if u not in seen:
+                        seen.add(u)
+                        deduped.append(u)
+                final_source_urls = deduped[:3]
                 
                 # If we filtered everything out but have potential sources, keep the first one as safety
                 if not final_source_urls and filtered:
                     final_source_urls = [filtered[0]]
             else:
-                final_source_urls = filtered
+                final_source_urls = filtered[:3]
 
         return GenerationResult(
             answer=cleaned,

@@ -289,6 +289,12 @@ class PostFilter:
             if body_text.lower().startswith("however"):
                 body_text = re.sub(r"^however,?\s*", "", body_text, flags=re.IGNORECASE).strip()
 
+            # FINAL SAFETY: If stripping the disclaimer resulted in an empty string, 
+            # it means the LLM ONLY provided the disclaimer (e.g. for out-of-scope).
+            # In that case, we should keep the original response so the user sees something!
+            if not body_text:
+                body_text = raw_text.strip()
+
         # Step 2: Determine used sources (skip entirely for fallback)
         used_sources: list[str] = []
         if not is_fallback:

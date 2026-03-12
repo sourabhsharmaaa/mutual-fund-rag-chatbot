@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-03-12T23:41:01.534130+05:30",
+  "scraped_at": "2026-03-13T00:40:08.828230+05:30",
   "total_urls_attempted": 15,
   "total_urls_ok": 14,
   "schemes": [
@@ -13,12 +13,12 @@
       "benchmark": "NIFTY 500 TRI (Primary); NIFTY 50 TRI (Additional)",
       "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
       "min_lumpsum_amount": "₹1,000",
+      "min_sip_amount": "₹1,000",
       "expense_ratio": "0.63%",
       "source_urls": [
         "https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/",
         "https://www.indmoney.com/mutual-funds/parag-parikh-flexi-cap-direct-growth-3229"
       ],
-      "min_sip_amount": "NA",
       "fund_size_aum": "NA",
       "date_of_allotment": "NA",
       "investment_objective": "NA",
@@ -36,12 +36,12 @@
       "benchmark": "NIFTY 500 TRI (Primary); NIFTY 50 TRI (Additional)",
       "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta",
       "min_lumpsum_amount": "₹500",
+      "min_sip_amount": "₹500",
       "expense_ratio": "0.62%",
       "source_urls": [
         "https://amc.ppfas.com/schemes/parag-parikh-tax-saver-fund/",
         "https://www.indmoney.com/mutual-funds/parag-parikh-tax-saver-fund-direct-growth-1002345"
       ],
-      "min_sip_amount": "NA",
       "fund_size_aum": "NA",
       "date_of_allotment": "NA",
       "investment_objective": "NA",
@@ -59,12 +59,12 @@
       "benchmark": "CRISIL Hybrid 85+15 Conservative Index",
       "fund_manager": "Rajeev Thakkar, Raunak Onkar, Raj Mehta, Rukun Tarachandani",
       "min_lumpsum_amount": "₹1,000",
+      "min_sip_amount": "₹1,000",
       "expense_ratio": "0.34%",
       "source_urls": [
         "https://amc.ppfas.com/schemes/parag-parikh-conservative-hybrid-fund/",
         "https://www.indmoney.com/mutual-funds/parag-parikh-conservative-hybrid-fund-direct-growth-1006619"
       ],
-      "min_sip_amount": "NA",
       "fund_size_aum": "NA",
       "date_of_allotment": "NA",
       "investment_objective": "To generate regular income through investments predominantly in debt and money market instruments. The\n            Scheme also seeks to generate long term capital appreciation from the portion of equity investments under\n            the scheme.\n\n\n            \n\n            However, there is no assurance or guarantee that the investment objective of the Scheme will be achieved and\n            the Scheme does not assure or guarantee any returns.",
@@ -82,12 +82,12 @@
       "benchmark": "NIFTY Liquid Fund Index",
       "fund_manager": "Raj Mehta, Raunak Onkar",
       "min_lumpsum_amount": "₹5,000",
+      "min_sip_amount": "₹1,000",
       "expense_ratio": "0.11%",
       "source_urls": [
         "https://amc.ppfas.com/schemes/parag-parikh-liquid-fund/",
         "https://www.indmoney.com/mutual-funds/parag-parikh-liquid-fund-direct-growth-3180"
       ],
-      "min_sip_amount": "NA",
       "fund_size_aum": "NA",
       "date_of_allotment": "NA",
       "investment_objective": "NA",
