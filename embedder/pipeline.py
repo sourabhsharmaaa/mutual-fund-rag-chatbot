@@ -87,9 +87,9 @@ def _build_embedding_function():
         ef = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
         logger.info("✅ Embedding model: sentence-transformers/all-MiniLM-L6-v2 (local)")
         return ef
-    except ImportError:
-        # Prevent auto-download / Crash on Render
-        logger.info("⚠️ sentence-transformers not found (Render environment). Using Dummy embeddings.")
+    except Exception as exc:
+        # Prevent auto-download / Crash on Render if package missing
+        logger.info(f"⚠️ sentence-transformers not available: {exc}. Using Dummy embeddings.")
         try:
             from chromadb.utils.embedding_functions import EmbeddingFunction # type: ignore
             class DummyEmbeddingFunction(EmbeddingFunction):
@@ -98,8 +98,8 @@ def _build_embedding_function():
             ef = DummyEmbeddingFunction()
             logger.info("✅ Embedding model: Dummy (local fallback)")
             return ef
-        except Exception as exc:
-            logger.warning("Dummy EF init failed (%s). Using None.", exc)
+        except Exception as exc2:
+            logger.warning("Dummy EF init failed (%s). Using None.", exc2)
             return None
 
 
