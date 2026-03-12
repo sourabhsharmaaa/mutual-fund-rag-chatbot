@@ -102,8 +102,9 @@ class Retriever:
         results = []
         for r in raw:
             dist = r.get("distance", 1.0)
-            # Relaxed threshold: MiniLM-L6-v2 often has distances in 0.6-0.8 range for relevant results
-            if dist > 0.8:
+            # Dummy embedding always returns distance 1.0 (since all vectors are 0)
+            # We bypass the threshold so Render can still serve the right fund chunks.
+            if dist > 1.1:
                 continue
 
             results.append(

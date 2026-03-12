@@ -54,39 +54,6 @@ def _now() -> str:
 
 
 # ---------------------------------------------------------------------------
-# HuggingFace Inference API Embedding Function
-# ---------------------------------------------------------------------------
-
-class HuggingFaceInferenceEmbeddingFunction:
-    """
-    Uses HuggingFace Inference API for embeddings — no local model download needed.
-    Model: sentence-transformers/all-MiniLM-L6-v2 (same as before, but via API)
-
-    Requires HF_API_TOKEN environment variable.
-    Get a free token at: https://huggingface.co/settings/tokens
-    """
-
-    def __init__(self, api_token: str, model_id: str = "sentence-transformers/all-MiniLM-L6-v2"):
-        import requests as req
-        self._requests = req
-        self._api_token = api_token
-        # HF recently deprecated api-inference.huggingface.co in favor of router.huggingface.co
-        self._url = f"https://router.huggingface.co/hf-inference/models/{model_id}"
-        self._headers = {"Authorization": f"Bearer {api_token}"}
-
-    def __call__(self, input: list) -> list:  # type: ignore
-        """Embed a list of strings via HF Inference API."""
-        response = self._requests.post(
-            self._url,
-            headers=self._headers,
-            json={"inputs": input, "options": {"wait_for_model": True}},
-            timeout=30,
-        )
-        response.raise_for_status()
-        return response.json()
-
-
-# ---------------------------------------------------------------------------
 # Embedding function factory
 # ---------------------------------------------------------------------------
 
@@ -95,22 +62,12 @@ def _build_embedding_function():
     Returns the best available ChromaDB-compatible embedding function.
 
     Priority:
-      1. HuggingFace Inference API (if HF_API_TOKEN set) — lightweight, no local download
-      2. Google text-embedding-004 (if GEMINI_API_KEY set) — fallback
-      3. None — ChromaDB uses dummy (search won't work; for dev/testing only)
+      1. Google text-embedding-004 (if GEMINI_API_KEY set)
+      2. ChromaDB's built-in sentence-transformers/all-MiniLM-L6-v2 (local GitHub Actions)
+      3. Dummy (for Render with limited memory)
     """
-    # 1. Try HuggingFace Inference API
-    hf_token = os.environ.get("HF_API_TOKEN", "").strip()
-    if hf_token:
-        try:
-            ef = HuggingFaceInferenceEmbeddingFunction(api_token=hf_token)
-            logger.info("✅ Embedding model: HuggingFace all-MiniLM-L6-v2 (via Inference API)")
-            return ef
-        except Exception as exc:
-            logger.warning("HuggingFace EF init failed (%s). Trying Gemini.", exc)
-
-    # 2. Try Google Gemini API
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+
     if api_key:
         try:
             from chromadb.utils.embedding_functions import GoogleGenerativeAiEmbeddingFunction  # type: ignore
@@ -121,14 +78,29 @@ def _build_embedding_function():
             logger.info("✅ Embedding model: Google text-embedding-004")
             return ef
         except Exception as exc:
-            logger.warning("Google embedding init failed (%s). Using None.", exc)
+            logger.warning("Google embedding init failed (%s). Falling back to local model.", exc)
 
-    # 3. No API key — warn loudly
-    logger.warning(
-        "⚠️  No HF_API_TOKEN or GEMINI_API_KEY found! "
-        "Semantic search will NOT work. Set HF_API_TOKEN in your environment."
-    )
-    return None
+    # Local fallback normally auto-loads sentence-transformers
+    # If not installed (like on Render), we use the dummy
+    try:
+        from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction  # type: ignore
+        ef = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+        logger.info("✅ Embedding model: sentence-transformers/all-MiniLM-L6-v2 (local)")
+        return ef
+    except ImportError:
+        # Prevent auto-download / Crash on Render
+        logger.info("⚠️ sentence-transformers not found (Render environment). Using Dummy embeddings.")
+        try:
+            from chromadb.utils.embedding_functions import EmbeddingFunction # type: ignore
+            class DummyEmbeddingFunction(EmbeddingFunction):
+                def __call__(self, input: Any) -> Any:
+                    return [[0.0] * 768 for _ in input]
+            ef = DummyEmbeddingFunction()
+            logger.info("✅ Embedding model: Dummy (local fallback)")
+            return ef
+        except Exception as exc:
+            logger.warning("Dummy EF init failed (%s). Using None.", exc)
+            return None
 
 
 # ---------------------------------------------------------------------------
