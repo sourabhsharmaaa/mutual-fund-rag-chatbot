@@ -270,17 +270,23 @@ class RAGGenerator:
             )
 
         context_chunks = results[: self._context_k]
-        context_str = "\n\n".join(f"[{i+1}] {r.format_for_prompt()}" for i, r in enumerate(context_chunks))
-        # Force the LLM to respect the fund filter by making it prominent
-        if fund_filter:
-            import re as pyre
-            selected_funds = pyre.split(r'[,·|]', fund_filter)
-            display_filter = ", ".join([f.strip() for f in selected_funds if f.strip()])
-            fund_scope_str = f"STRICT FILTER: ONLY include data for {display_filter}. ABSOLUTELY DO NOT mention any other funds if they are not in this list."
-        else:
-            fund_scope_str = "ALL FUNDS (no specific fund filter)"
-            
-        prompt = SYSTEM_PROMPT.format(context=context_str, query=query, fund_scope=fund_scope_str)
+        context_text = "\n\n".join([f"Source: {c.source_url}\nContent: {c.text}" for c in context_chunks])
+        
+        # Enhanced Prompt for multi-fund support
+        multi_fund_instruction = ""
+        is_plural_query = "funds" in query.lower() or "all fund" in query.lower()
+        if is_plural_query:
+            multi_fund_instruction = "\nIMPORTANT: provide a consolidated answer covering ALL 4 schemes: Parag Parikh Flexi Cap Fund, Parag Parikh ELSS Tax Saver Fund, Parag Parikh Conservative Hybrid Fund, and Parag Parikh Liquid Fund."
+
+        prompt = f"""You are INDy, the official Parag Parikh Mutual Fund assistant. 
+Use ONLY the following context to answer the user query. {multi_fund_instruction}
+If the context doesn't contain the answer for a specific fund, state that clearly.
+
+Context:
+{context_text}
+
+Query: {query}
+Answer:"""
 
         # Step 4 — Call LLM (Groq)
         t_llm_start = time.monotonic()
@@ -397,30 +403,48 @@ class RAGGenerator:
 
             def sort_key(url: str) -> int:
                 low_url = url.lower()
-                # Priority 0: PPFAS Scheme for Query Fund
-                if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in query_fragments): return 0
-                # Priority 1: IndMoney for Query Fund
-                if "indmoney.com" in low_url and any(f in low_url for f in query_fragments): return 1
-                # Priority 2: PPFAS Scheme for Answer Fund (but not Query fund)
-                if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in answer_fragments): return 2
-                # Priority 3: General FAQs
-                if "/faqs/" in low_url or "sid" in low_url: return 3
-                # Priority 4: IndMoney for Answer Fund
-                if "indmoney.com" in low_url and any(f in low_url for f in answer_fragments): return 4
+                # Priority 0: IndMoney for Query Fund (User Preference)
+                if "indmoney.com" in low_url and any(f in low_url for f in query_fragments): return 0
+                # Priority 1: PPFAS Scheme for Query Fund
+                if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in query_fragments): return 1
+                # Priority 2: IndMoney for Answer Fund
+                if "indmoney.com" in low_url and any(f in low_url for f in answer_fragments): return 2
+                # Priority 3: PPFAS Scheme for Answer Fund
+                if "amc.ppfas.com/schemes/" in low_url and any(f in low_url for f in answer_fragments): return 3
+                # Priority 4: General FAQs
+                if "/faqs/" in low_url or "sid" in low_url: return 4
                 return 5
 
-            filtered_sources = sorted([u for u in all_candidates if is_relevant(u)], key=sort_key)
+            all_raw_sources = sorted([u for u in all_candidates if is_relevant(u)], key=sort_key)
             
-            # Deduplicate and Cap
-            seen = set()
-            for u in filtered_sources:
-                # Normalize URL to catch duplicates like amc.ppfas.com/schemes vs amc.ppfas.com/schemes/
+            # Deduplicate and Cap with AMC suppression
+            seen_norms = set()
+            seen_fund_slugs = set() # Track fund slugs that have IndMoney links
+            
+            # 1. Identify which funds have IndMoney links available
+            for u in all_raw_sources:
+                if "indmoney.com" in u.lower():
+                    for slug in FRAGMENTS.values():
+                        if slug in u.lower(): seen_fund_slugs.add(slug)
+
+            final_source_urls = []
+            for u in all_raw_sources:
                 norm = u.lower().rstrip("/").replace("http://", "").replace("https://", "").replace("www.", "")
-                if norm not in seen:
-                    seen.add(norm)
-                    final_source_urls.append(u)
+                if norm in seen_norms: continue
+                
+                # AMC Suppression: skip amc.ppfas.com links if an IndMoney link for the SAME fund exists
+                is_amc_scheme = "amc.ppfas.com/schemes/" in u.lower()
+                if is_amc_scheme:
+                    fund_match = next((slug for slug in FRAGMENTS.values() if slug in u.lower()), None)
+                    if fund_match and fund_match in seen_fund_slugs:
+                        continue # Suppress AMC link
+                
+                seen_norms.add(norm)
+                final_source_urls.append(u)
             
-            final_source_urls = final_source_urls[:3]
+            # Cap at 4 for multi-fund queries, 3 otherwise
+            cap = 4 if is_plural else 3
+            final_source_urls = final_source_urls[:cap]
 
         return GenerationResult(
             answer=cleaned,
