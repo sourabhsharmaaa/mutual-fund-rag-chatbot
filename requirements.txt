@@ -1,28 +1,22 @@
-# PPFAS Mutual Fund RAG Chatbot — Dependencies
-# Install: pip install -r requirements.txt
-
-# ── Phase 1: Web scraping ──────────────────────────────────────────────────
-playwright==1.43.0
+# PPFAS Mutual Fund RAG Chatbot — Backend API Dependencies (Render / Production)
+# For local development and scraping, also install requirements-scheduler.txt
 
 # ── Phase 2: Vector embeddings ─────────────────────────────────────────────
 chromadb==0.5.23
 
-# Embedding model — local fallback (no API key needed)
-# ChromaDB auto-downloads all-MiniLM-L6-v2 on first use
-sentence-transformers==3.0.1
-
-# ── Phase 2 + 3: Google AI (embeddings + Gemini LLM) ─────────────────────
+# ── Google AI (embeddings + Gemini LLM) ───────────────────────────────────
 google-generativeai==0.8.3
 
-# ── Phase 4: Backend API (coming next) ────────────────────────────────────
+# ── Backend API ────────────────────────────────────────────────────────────
 fastapi==0.110.0
 uvicorn==0.29.0
 pydantic==2.6.4
 python-dotenv==1.0.1
 
-# ── Standard library (no install needed) ──────────────────────────────────
-# asyncio, json, re, pathlib, datetime, abc, typing, hashlib, argparse, textwrap
+# ── LLM Client ────────────────────────────────────────────────────────────
 groq==1.0.0
+
+# ── Scheduler (lightweight, used by /api/status) ──────────────────────────
 apscheduler==3.10.4
-streamlit==1.34.0
 requests==2.32.3
+

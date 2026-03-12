@@ -79,16 +79,18 @@ def _build_embedding_function():
         except Exception as exc:
             logger.warning("Google embedding init failed (%s). Falling back to local model.", exc)
 
-    # Local fallback — no API key needed
+    # Local fallback — dummy embedding function to prevent Auto-download
     try:
-        from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
-        ef = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
-        logger.info("✅ Embedding model: sentence-transformers/all-MiniLM-L6-v2 (local)")
+        from chromadb.utils.embedding_functions import EmbeddingFunction # type: ignore
+        class DummyEmbeddingFunction(EmbeddingFunction):
+            def __call__(self, input: Any) -> Any:
+                return [[0.0] * 768 for _ in input]
+        ef = DummyEmbeddingFunction()
+        logger.info("✅ Embedding model: Dummy (local fallback)")
         return ef
     except Exception as exc:
-        logger.warning("SentenceTransformer init failed (%s). Using ChromaDB default.", exc)
-        logger.info("✅ Embedding model: ChromaDB built-in default")
-        return None     # ChromaDB will use its own default
+        logger.warning("Dummy EF init failed (%s). Using None.", exc)
+        return None
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,12 @@
+# PPFAS RAG Chatbot — Scheduler / GitHub Actions Dependencies
+# These are ONLY needed for running the data update pipeline (GitHub Actions, local scraping).
+# Do NOT install these on Render (they eat too much memory).
+
+# ── Phase 1: Web scraping ──────────────────────────────────────────────────
+playwright==1.43.0
+
+# ── Phase 2: Embedding model (local fallback, not needed when GEMINI_API_KEY is set) ─
+sentence-transformers==3.0.1
+
+# ── All other backend deps ─────────────────────────────────────────────────
+-r requirements.txt
