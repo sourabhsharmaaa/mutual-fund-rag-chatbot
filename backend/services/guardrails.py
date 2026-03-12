@@ -271,22 +271,29 @@ class PostFilter:
         # strip the disclaimer and any transitional text like "However, ..." or "Based on..."
         DISCLAIMER_START = "I'm INDy, your Parag Parikh Mutual Fund assistant!"
         if not is_fallback and body_text.startswith(DISCLAIMER_START):
-            # Regex to find the disclaimer and any following transition sentences 
-            # (up until the first line break or bullet point or fund name)
-            # This handles "Based on the provided context, here are..." etc.
-            body_text = re.sub(rf"^{re.escape(DISCLAIMER_START)}.*?\n+", "", body_text, flags=re.DOTALL).strip()
-            # If sub didn't catch it because there were no newlines, try a simpler approach
-            if body_text.startswith(DISCLAIMER_START):
-                body_text = re.sub(rf"^{re.escape(DISCLAIMER_START)}.*?(?=Parag Parikh|[\d%-])", "", body_text, flags=re.DOTALL).strip()
+            # Safer stripping: Just remove the specific disclaimer text and any immediate intro transitions
+            # that often follow it (e.g. "Based on the context, here is...")
+            # We avoid stopping at characters like '-' which broke "SEBI-registered advisor".
+            
+            # 1. Remove the mandatory disclaimer prefix
+            body_text = body_text[len(DISCLAIMER_START):].strip()
+            
+            # 2. If it now starts with "I can only share factual fund data... advisor.", remove that too.
+            LONG_DISCLAIMER_CONTINUATION = "I can only share factual fund data — not opinions or advice. For investment guidance, please consult a SEBI-registered advisor."
+            if body_text.startswith(LONG_DISCLAIMER_CONTINUATION):
+                body_text = body_text[len(LONG_DISCLAIMER_CONTINUATION):].strip()
+            
+            # 3. Strip common intro phrases that LLMs sometimes hallucinate despite rules
+            body_text = re.sub(r"^(Based on the (provided )?context|Here is the (requested )?data|Regarding your question),?\s*", "", body_text, flags=re.IGNORECASE).strip()
+            # If it starts with "however," strip that too
+            if body_text.lower().startswith("however"):
+                body_text = re.sub(r"^however,?\s*", "", body_text, flags=re.IGNORECASE).strip()
 
         # Step 2: Determine used sources (skip entirely for fallback)
         used_sources: list[str] = []
         if not is_fallback:
-            # Filter matches: Only include links that aren't generic index pages
-            # and that actually appear in the LLM's raw text/references.
-            BLOCKLIST = ["amc.ppfas.com/schemes", "amc.ppfas.com/faqs"]
-            
-            potential_sources = [url for url in source_urls if not any(b in url for b in BLOCKLIST)]
+            # Relaxed filters: Allow schemes and faqs as they are primary fund fact sources
+            potential_sources = source_urls
             
             # If the LLM cited specific URLs, use them (if they aren't blocked)
             cited_in_text = [url for url in potential_sources if url in raw_text]

@@ -324,13 +324,10 @@ class RAGGenerator:
         if is_hard_refusal and not contains_data:
             final_source_urls = []
         else:
-            # Filter source_urls for relevance and blocklist
-            BLOCKLIST = ["amc.ppfas.com/schemes", "amc.ppfas.com/faqs"]
+            # Relaxed filters: Allow schemes and faqs as they are primary fund fact sources
+            filtered = source_urls 
             
-            # 1. Blocklist filter
-            filtered = [url for url in source_urls if not any(b in url for b in BLOCKLIST)]
-            
-            # 2. Fund-relevance filter (now with auto-detection from answer text)
+            # Fund-relevance filter (now with auto-detection from answer text)
             import re as pyre
             FRAGMENTS = {
                 "PPFCF": "flexi-cap",
