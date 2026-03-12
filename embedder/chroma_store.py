@@ -79,13 +79,10 @@ class ChromaStore:
         )
 
         if embedding_fn is None:
-            # Prevent ChromaDB from auto-loading all-MiniLM-L6-v2
-            # We provide a dummy embedding function that just returns zeros
-            from chromadb.utils.embedding_functions import EmbeddingFunction # type: ignore
-            class DummyEmbeddingFunction(EmbeddingFunction):
-                def __call__(self, input: chromadb.Documents) -> chromadb.Embeddings:
-                    return [[0.0] * 768 for _ in input]
-            embedding_fn = DummyEmbeddingFunction()
+            # Use the central embedding factory so HF / Gemini API is used
+            # instead of auto-loading the local all-MiniLM-L6-v2 model.
+            from embedder.pipeline import _build_embedding_function  # type: ignore
+            embedding_fn = _build_embedding_function()
 
         ef_kwargs = {"embedding_function": embedding_fn}
 
