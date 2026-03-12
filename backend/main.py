@@ -54,6 +54,27 @@ def get_service_status():
 def health_check():
     return {"status": "healthy"}
 
+@app.get("/api/debug")
+def debug_chroma():
+    """Temporary endpoint to check live ChromaDB status on Render."""
+    try:
+        from backend.services.retriever import get_retriever
+        ret = get_retriever()
+        store = ret._get_store()
+        stats = store.stats()
+        
+        # Test query
+        res = ret.retrieve("What is exit load?", top_k=5)
+        
+        return {
+            "version": "1.0.3", # Bump this to know when the latest code is live
+            "chroma_stats": stats,
+            "dummy_query_results": len(res),
+            "dummy_distances": [r.distance for r in res]
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
 if __name__ == "__main__":
     import uvicorn # type: ignore
     # Allow running directly via python -m backend.main

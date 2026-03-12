@@ -88,13 +88,13 @@ def _build_embedding_function():
             from chromadb.utils.embedding_functions import EmbeddingFunction # type: ignore
             class DummyEmbeddingFunction(EmbeddingFunction):
                 def __call__(self, input: Any) -> Any:
-                    return [[0.0] * 768 for _ in input]
+                    return [[0.0] * 384 for _ in input]
             ef = DummyEmbeddingFunction()
             logger.info("✅ Embedding model: Dummy (local fallback)")
             return ef
         except Exception as exc:
-            logger.warning("Dummy EF init failed (%s). Using None.", exc)
-            return None
+            logger.error("Dummy EF init failed: %s", exc)
+            raise exc
 
     # Local GitHub Actions fallback
     try:
