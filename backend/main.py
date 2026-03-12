@@ -66,11 +66,17 @@ def debug_chroma():
         # Test query
         res = ret.retrieve("What is exit load?", top_k=5)
         
+        # Check metadata
+        scheme_sample = store._col_scheme.get(limit=1, include=["metadatas"])
+        general_sample = store._col_general.get(limit=1, include=["metadatas"])
+        
         return {
-            "version": "1.0.3", # Bump this to know when the latest code is live
+            "version": "1.0.4",
             "chroma_stats": stats,
             "dummy_query_results": len(res),
-            "dummy_distances": [r.distance for r in res]
+            "dummy_distances": [r.distance for r in res],
+            "scheme_metadata_sample": scheme_sample["metadatas"][0] if scheme_sample["metadatas"] else "EMPTY",
+            "general_metadata_sample": general_sample["metadatas"][0] if general_sample["metadatas"] else "EMPTY"
         }
     except Exception as e:
         return {"error": str(e)}
