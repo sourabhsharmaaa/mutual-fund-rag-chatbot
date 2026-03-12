@@ -306,7 +306,7 @@ class RAGGenerator:
             "I couldn't find relevant data for this. "
             "Try asking about NAV, expense ratios, exit loads, fund managers, or how to download your CAS."
         )
-        if cleaned.strip().upper().startswith("NO_DATA") or "NO_DATA" in cleaned:
+        if cleaned.strip().upper().startswith("NO_DATA") or "NO_DATA" in cleaned or not cleaned.strip() or len(cleaned.strip()) < 5:
             return GenerationResult(
                 answer=FRIENDLY_NO_DATA,
                 raw_llm_response=raw_response,
