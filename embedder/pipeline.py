@@ -80,16 +80,10 @@ def _build_embedding_function():
         except Exception as exc:
             logger.warning("Google embedding init failed (%s). Falling back to local model.", exc)
 
-    # Local fallback normally auto-loads sentence-transformers
-    # If not installed (like on Render), we use the dummy
-    try:
-        from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction  # type: ignore
-        ef = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
-        logger.info("✅ Embedding model: sentence-transformers/all-MiniLM-L6-v2 (local)")
-        return ef
-    except Exception as exc:
-        # Prevent auto-download / Crash on Render if package missing
-        logger.info(f"⚠️ sentence-transformers not available: {exc}. Using Dummy embeddings.")
+    # On Render, sentence-transformers is intentionally omitted to save memory.
+    # ChromaDB throws a hard error if we even try to import it.
+    if os.environ.get("RENDER"):
+        logger.info("⚠️ Detected Render environment. Skipping ML model and using Dummy embeddings.")
         try:
             from chromadb.utils.embedding_functions import EmbeddingFunction # type: ignore
             class DummyEmbeddingFunction(EmbeddingFunction):
@@ -98,9 +92,19 @@ def _build_embedding_function():
             ef = DummyEmbeddingFunction()
             logger.info("✅ Embedding model: Dummy (local fallback)")
             return ef
-        except Exception as exc2:
-            logger.warning("Dummy EF init failed (%s). Using None.", exc2)
+        except Exception as exc:
+            logger.warning("Dummy EF init failed (%s). Using None.", exc)
             return None
+
+    # Local GitHub Actions fallback
+    try:
+        from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction  # type: ignore
+        ef = SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+        logger.info("✅ Embedding model: sentence-transformers/all-MiniLM-L6-v2 (local)")
+        return ef
+    except Exception as exc:
+        logger.warning(f"sentence-transformers fallback failed: {exc}. Using None.")
+        return None
 
 
 # ---------------------------------------------------------------------------
