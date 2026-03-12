@@ -48,15 +48,18 @@ class GenerationResult:
 
 SYSTEM_PROMPT = """You are a factual knowledge assistant for Parag Parikh Mutual Fund (PPFAS).
 
+{fund_scope}
+
 RULES (non-negotiable):
 1. Answer using ONLY the provided context. Never use external knowledge.
 2. Limit your answer to a MAXIMUM of 5 sentences.
 3. Keep your language professional and objective.
-4. Do NOT give investment advice. Do NOT say "you should invest", "this is good for you", or any recommendation language.
-5. If the question asks for an opinion, preference, or recommendation (queries that cannot be answered factually using the context), respond ONLY with the following disclaimer and nothing else:
+4. If the query is plural ("funds", "all funds"), provide data for all 4 schemes (Flexi Cap, Tax Saver, Conservative Hybrid, Liquid) if available in the context.
+5. Do NOT give investment advice. Do NOT say "you should invest", "this is good for you", or any recommendation language.
+6. If the question asks for an opinion, preference, or recommendation (queries that cannot be answered factually using the context), respond ONLY with the following disclaimer and nothing else:
    "I'm INDy, your Parag Parikh Mutual Fund assistant! I can only share factual fund data — not opinions or advice. For investment guidance, please consult a SEBI-registered advisor."
-6. Do NOT collect or acknowledge personal details (PAN, folio number, etc.).
-7. DOMAIN KNOWLEDGE: 
+7. Do NOT collect or acknowledge personal details (PAN, folio number, etc.).
+8. DOMAIN KNOWLEDGE: 
    - "PPFAS" refers to "Parag Parikh Financial Advisory Services".
    - "PPFAS Mutual Fund" and "Parag Parikh Mutual Fund" are the same entity.
    - Parag Parikh ELSS Tax Saver Fund inherently qualifies for tax deduction under Section 80C.
@@ -345,15 +348,16 @@ class RAGGenerator:
             for c in selected_codes:
                 if c in FRAGMENTS: query_fragments.append(FRAGMENTS[c])
         
-        # 2. Check query (highest relevance)
+        # 2. Check query (highest relevance) + plurals
+        is_plural = "funds" in low_query or "all fund" in low_query
         for code, slug in FRAGMENTS.items():
             readable = slug.replace("-", " ")
-            if code.lower() in low_query or readable in low_query:
+            if is_plural or (code.lower() in low_query or readable in low_query):
                 if slug not in query_fragments: query_fragments.append(slug)
         
         # 3. Check answer (secondary relevance, but ignore trailing canned disclaimer)
-        # Only check first 300 chars of answer to avoid detecting funds in the suggestion footer
-        answer_body = low_answer[:300]
+        # Only check first 500 chars of answer to be safer
+        answer_body = low_answer[:500]
         for code, slug in FRAGMENTS.items():
             readable = slug.replace("-", " ")
             if code.lower() in answer_body or readable in answer_body:
@@ -361,10 +365,14 @@ class RAGGenerator:
                     answer_fragments.append(slug)
 
         # SEVERE SAFETY: If this is a disclaimer / fallback, clear ALL sources
+        # EXCEPTION: If the user specifically asked for CAS, do NOT clear sources.
         DISCLAIMER_PHRASE = "I'm INDy, your Parag Parikh Mutual Fund assistant!"
         is_fallback = (DISCLAIMER_PHRASE in cleaned) and (len(cleaned) < 300) and not bool(re.search(r'[\d\%₹]|rs\.', cleaned, re.IGNORECASE))
         
-        if is_fallback:
+        # Restore sources for CAS even if filtered
+        is_cas_query = "cas" in low_query or "statement" in low_query
+        
+        if is_fallback and not is_cas_query:
             final_source_urls = []
         else:
             # Seed specific URLs
@@ -406,7 +414,8 @@ class RAGGenerator:
             # Deduplicate and Cap
             seen = set()
             for u in filtered_sources:
-                norm = u.lower().rstrip("/")
+                # Normalize URL to catch duplicates like amc.ppfas.com/schemes vs amc.ppfas.com/schemes/
+                norm = u.lower().rstrip("/").replace("http://", "").replace("https://", "").replace("www.", "")
                 if norm not in seen:
                     seen.add(norm)
                     final_source_urls.append(u)

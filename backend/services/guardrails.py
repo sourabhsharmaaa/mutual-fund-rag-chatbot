@@ -271,7 +271,9 @@ class PostFilter:
         is_disclaimer_only = (DISCLAIMER_START in body_text) and (len(body_text) < 250) and not contains_data
         
         # It's only a fallback if it refuses OR is just a disclaimer, AND doesn't seem to have numeric data
-        is_fallback = (is_hard_refusal or is_disclaimer_only) and not contains_data
+        # EXCEPTION: If the user is asking about CAS or statements, we don't treat it as a source-blocking fallback.
+        is_cas_query = "cas" in query.lower() or "statement" in query.lower()
+        is_fallback = (is_hard_refusal or is_disclaimer_only) and not contains_data and not is_cas_query
         
         # If body_text became empty after URL stripping, but raw_text wasn't empty, 
         # restore it (we'd rather have URLs than nothing)

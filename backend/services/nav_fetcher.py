@@ -31,8 +31,15 @@ async def fetch_live_nav(fund_code: str) -> str:
         async with httpx.AsyncClient(follow_redirects=True, timeout=10.0) as client:
             resp = await client.get(AMFI_URL, headers={"User-Agent": "Mozilla/5.0"})
             if resp.status_code == 200:
-                # Use .text to handle encoding
-                lines = resp.text.split('\n')
+                # AMFI uses latin-1 or similar; explicitly set to avoid decode issues on Render
+                resp.encoding = 'utf-8' # Try UTF-8 first, fallback to latin-1
+                try:
+                    text = resp.text
+                except UnicodeDecodeError:
+                    resp.encoding = 'latin-1'
+                    text = resp.text
+                
+                lines = text.split('\n')
                 for line in lines:
                     if line.startswith(code):
                         parts = line.split(';')
