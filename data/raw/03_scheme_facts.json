@@ -1,26 +1,8 @@
 {
   "source_url": "https://www.indmoney.com/mutual-funds/parag-parikh-conservative-hybrid-fund-direct-growth-1006619",
-  "status": "ok",
-  "data": {
-    "expense_ratio": "NA",
-    "exit_load": "NA",
-    "min_sip_amount": "NA",
-    "fund_size_aum": "NA",
-    "riskometer": "Moderately High risk",
-    "benchmark": "NA",
-    "fund_manager": [
-      "Key Parameters",
-      "Rukun Tarachandani",
-      "Raunak Onkar",
-      "Raj Mehta",
-      "Rajeev Thakkar",
-      "Mansi Kariya",
-      "Tejas Soman"
-    ],
-    "category": "NA",
-    "lock_in_period": "NA"
-  },
-  "error_message": "",
-  "elapsed_ms": 5118.6,
-  "field_count": 2
+  "status": "error",
+  "data": {},
+  "error_message": "HTTP 403",
+  "elapsed_ms": 2508.7,
+  "field_count": 0
 }

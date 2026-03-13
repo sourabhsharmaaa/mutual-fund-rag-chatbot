@@ -1,26 +1,8 @@
 {
   "source_url": "https://www.indmoney.com/mutual-funds/parag-parikh-flexi-cap-direct-growth-3229",
-  "status": "ok",
-  "data": {
-    "expense_ratio": "NA",
-    "exit_load": "NA",
-    "min_sip_amount": "NA",
-    "fund_size_aum": "NA",
-    "riskometer": "Very High Risk",
-    "benchmark": "NA",
-    "fund_manager": [
-      "Raj Mehta",
-      "Raunak Onkar",
-      "Mansi Kariya",
-      "Rajeev Thakkar",
-      "Rukun Tarachandani",
-      "Aishwarya Dhar",
-      "Tejas Soman"
-    ],
-    "category": "NA",
-    "lock_in_period": "NA"
-  },
-  "error_message": "",
-  "elapsed_ms": 5210.0,
-  "field_count": 2
+  "status": "error",
+  "data": {},
+  "error_message": "HTTP 403",
+  "elapsed_ms": 2599.9,
+  "field_count": 0
 }

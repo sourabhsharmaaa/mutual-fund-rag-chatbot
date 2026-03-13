@@ -1,21 +1,8 @@
 {
   "source_url": "https://www.indmoney.com/mutual-funds/parag-parikh-tax-saver-fund-direct-growth-1002345",
-  "status": "ok",
-  "data": {
-    "expense_ratio": "NA",
-    "exit_load": "0%",
-    "min_sip_amount": "NA",
-    "fund_size_aum": "NA",
-    "riskometer": "Moderate Risk",
-    "benchmark": "NA",
-    "fund_manager": [
-      "Key Parameters",
-      "Kaustubh Sule"
-    ],
-    "category": "NA",
-    "lock_in_period": "NA"
-  },
-  "error_message": "",
-  "elapsed_ms": 5206.8,
-  "field_count": 3
+  "status": "error",
+  "data": {},
+  "error_message": "HTTP 403",
+  "elapsed_ms": 2537.6,
+  "field_count": 0
 }

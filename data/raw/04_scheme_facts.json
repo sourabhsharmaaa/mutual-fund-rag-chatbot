@@ -1,22 +1,8 @@
 {
   "source_url": "https://www.indmoney.com/mutual-funds/parag-parikh-liquid-fund-direct-growth-3180",
-  "status": "ok",
-  "data": {
-    "expense_ratio": "NA",
-    "exit_load": "NA",
-    "min_sip_amount": "NA",
-    "fund_size_aum": "NA",
-    "riskometer": "Very High Risk",
-    "benchmark": "NA",
-    "fund_manager": [
-      "Key Parameters",
-      "Rajasa Kakulavarapu",
-      "Sandeep Manam"
-    ],
-    "category": "NA",
-    "lock_in_period": "NA"
-  },
-  "error_message": "",
-  "elapsed_ms": 5249.8,
-  "field_count": 2
+  "status": "error",
+  "data": {},
+  "error_message": "HTTP 403",
+  "elapsed_ms": 2532.3,
+  "field_count": 0
 }
