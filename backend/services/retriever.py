@@ -120,6 +120,10 @@ class Retriever:
                     matches += 3
                 if "flexi" in query.lower() and "flexi" in t_lower:
                     matches += 3
+                if "liquid" in query.lower() and "liquid" in t_lower:
+                    matches += 3
+                if "hybrid" in query.lower() and "hybrid" in t_lower:
+                    matches += 3
                 # Map matches to a distance (0.0 is perfect, 1.0 is no match)
                 dist = max(0.0, 1.0 - (matches * 0.1))
 

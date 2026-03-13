@@ -126,9 +126,12 @@ class RAGGenerator:
         # Render-specific context boost: fetch more to avoid DummyEmbedding search failure.
         # Now used in tandem with keyword re-ranking in retriever.py.
         if os.environ.get("RENDER"):
-            logger.info("Adjusted retrieval context for Render (top_k=15, context_k=20)")
+            logger.info("Adjusted retrieval context for Render (top_k=15, context_k=24)")
             self._top_k = 15
-            self._context_k = 20 # Increased from 15
+            self._context_k = 24 # Increased for multi-fund coverage
+        else:
+            self._top_k = 15
+            self._context_k = 24
 
         self._model_name    = GROQ_MODEL
         self._temperature   = LLM_TEMPERATURE
@@ -287,7 +290,7 @@ class RAGGenerator:
             fund_names = ["Parag Parikh Flexi Cap Fund", "Parag Parikh ELSS Tax Saver Fund", 
                           "Parag Parikh Conservative Hybrid Fund", "Parag Parikh Liquid Fund"]
             for fname in fund_names:
-                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4) # Increased for better factual coverage
+                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=5) # Increased for better factual coverage
                 results.extend(fund_results)
             # Add general query results too
             general_results = self._retriever.retrieve(query, top_k=4)
@@ -302,7 +305,7 @@ class RAGGenerator:
             }
             for code in selected_funds:
                 fname = fund_names.get(code, code)
-                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4, fund_filter=code)
+                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=5, fund_filter=code)
                 results.extend(fund_results)
             # Add general query results too
             general_results = self._retriever.retrieve(query, top_k=4, fund_filter=fund_filter)

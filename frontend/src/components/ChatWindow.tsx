@@ -69,7 +69,8 @@ function MultiFundPlanner({ funds, onAsk, onAskAll, disabled }: PlannerProps) {
 
     useEffect(() => {
         if (!disabled) {
-            plannerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Use block: 'center' to ensure it's fully visible at the top of the chat area
+            plannerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }, [funds.length, disabled]);
 
@@ -153,7 +154,13 @@ export function ChatWindow() {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, isLoading, showPlanner]);
+    useEffect(() => { 
+        // Only auto-scroll to bottom if planner is NOT active.
+        // If planner is active (which is order: -1 at the top), we don't want to fight its scroll.
+        if (!showPlanner) {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); 
+        }
+    }, [messages, isLoading, showPlanner]);
 
 
     // Auto-pop the planner when user selects more funds
