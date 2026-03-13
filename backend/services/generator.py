@@ -286,10 +286,10 @@ class RAGGenerator:
             fund_names = ["Parag Parikh Flexi Cap Fund", "Parag Parikh ELSS Tax Saver Fund", 
                           "Parag Parikh Conservative Hybrid Fund", "Parag Parikh Liquid Fund"]
             for fname in fund_names:
-                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=2) # Get top 2 for each
+                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4) # Increased for better factual coverage
                 results.extend(fund_results)
             # Add general query results too
-            general_results = self._retriever.retrieve(query, top_k=2)
+            general_results = self._retriever.retrieve(query, top_k=4)
             results.extend(general_results)
         elif len(selected_funds) > 1:
             # Perform separate retrievals for EACH selected fund to guarantee EVEN coverage!
@@ -301,10 +301,10 @@ class RAGGenerator:
             }
             for code in selected_funds:
                 fname = fund_names.get(code, code)
-                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=2, fund_filter=code)
+                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4, fund_filter=code)
                 results.extend(fund_results)
             # Add general query results too for overlapping definitions
-            general_results = self._retriever.retrieve(query, top_k=2, fund_filter=fund_filter)
+            general_results = self._retriever.retrieve(query, top_k=4, fund_filter=fund_filter)
             results.extend(general_results)
         else:
             results = self._retriever.retrieve(augmented_query, top_k=self._top_k, fund_filter=fund_filter)
@@ -403,10 +403,15 @@ class RAGGenerator:
                 if c in FRAGMENTS: query_fragments.append(FRAGMENTS[c])
         
         # 2. Check query (highest relevance) + plurals
-        is_plural = "funds" in low_query or "all fund" in low_query
+        is_plural = any(k in low_query for k in ["funds", "all fund", "expense ratio", "fund managers", "exit load", "aum"])
         for code, slug in FRAGMENTS.items():
             readable = slug.replace("-", " ")
-            if is_plural or (code.lower() in low_query or readable in low_query):
+            # Better matching for PPTSF (ELSS)
+            is_match = (code.lower() in low_query or readable in low_query)
+            if code == "PPTSF" and not is_match:
+                is_match = "elss" in low_query or "tax saver" in low_query
+
+            if is_plural or is_match:
                 if slug not in query_fragments: query_fragments.append(slug)
         
         # 3. Check answer (secondary relevance, but ignore trailing canned disclaimer)

@@ -113,9 +113,11 @@ class Retriever:
                 q_words = set(re.sub(r'[^\w\s]', '', query.lower()).split())
                 t_lower = r["text"].lower()
                 matches = sum(1 for w in q_words if len(w) > 2 and w in t_lower)
-                # Boost if specific fund codes match
+                # Boost if specific fund codes or tax/elss keywords match
                 if fund_filter and fund_filter.lower() in t_lower:
                     matches += 5
+                if any(kw in query.lower() for kw in ["elss", "tax"]) and any(kw in t_lower for kw in ["elss", "tax"]):
+                    matches += 3
                 # Map matches to a distance (0.0 is perfect, 1.0 is no match)
                 dist = max(0.0, 1.0 - (matches * 0.1))
 
