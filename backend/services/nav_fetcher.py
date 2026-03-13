@@ -1,5 +1,4 @@
 import httpx
-from bs4 import BeautifulSoup
 import logging
 
 logger = logging.getLogger(__name__)
@@ -29,22 +28,20 @@ async def fetch_live_nav(fund_code: str) -> str:
 
     import asyncio
 
-    # Retry parameters
-    MAX_ATTEMPTS = 3
-    TIMEOUT = 20.0
+    # Retry parameters - keep timeout short enough to stay under Render's 30s limit
+    MAX_ATTEMPTS = 2
+    TIMEOUT = 8.0
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
             async with httpx.AsyncClient(follow_redirects=True, timeout=TIMEOUT) as client:
                 resp = await client.get(AMFI_URL, headers={"User-Agent": "Mozilla/5.0"}, follow_redirects=True)
                 if resp.status_code == 200:
-                    # AMFI uses latin-1 or similar; explicitly set to avoid decode issues on Render
-                    resp.encoding = 'utf-8' # Try UTF-8 first, fallback to latin-1
+                    # AMFI uses latin-1; try utf-8 first, then fall back
                     try:
-                        text = resp.text
+                        text = resp.content.decode("utf-8")
                     except UnicodeDecodeError:
-                        resp.encoding = 'latin-1'
-                        text = resp.text
+                        text = resp.content.decode("latin-1")
                     
                     lines = text.split('\n')
                     for line in lines:
@@ -64,6 +61,9 @@ async def fetch_live_nav(fund_code: str) -> str:
             logger.error(f"Attempt {attempt} failed to fetch NAV for {fund_code}: {e}")
         
         if attempt < MAX_ATTEMPTS:
-            await asyncio.sleep(1) # Wait before retry
+            await asyncio.sleep(1)
 
-    return f"Couldn't reach the server for {fund_code}." if fund_code else ""
+    # Return empty string — generator will fall back to seed NAV data
+    logger.warning(f"All NAV fetch attempts failed for {fund_code}, returning empty.")
+    return ""
+
