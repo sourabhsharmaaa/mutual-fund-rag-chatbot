@@ -254,6 +254,7 @@ class RAGGenerator:
         import re as pyre
         selected_funds = pyre.split(r'[,·|]', fund_filter) if fund_filter else []
         selected_funds = [f.strip() for f in selected_funds if f.strip()]
+        selected_codes = selected_funds # Ensure this name is available for source logic later
 
         # Only augment the search query with a fund-name prefix if EXACTLY ONE fund is selected.
         # Prefixing with multiple funds (e.g. 'PPCHF · PPTSF: ...') muddies the semantic search results.
@@ -288,8 +289,8 @@ class RAGGenerator:
             for fname in fund_names:
                 fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4) # Increased for better factual coverage
                 results.extend(fund_results)
-            # Add general query results too (Focus on fund-specific facts with top_k=2)
-            general_results = self._retriever.retrieve(query, top_k=2)
+            # Add general query results too
+            general_results = self._retriever.retrieve(query, top_k=4)
             results.extend(general_results)
         elif len(selected_funds) > 1:
             # Perform separate retrievals for EACH selected fund to guarantee EVEN coverage!
@@ -303,8 +304,8 @@ class RAGGenerator:
                 fname = fund_names.get(code, code)
                 fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4, fund_filter=code)
                 results.extend(fund_results)
-            # Add general query results too (Focus on fund-specific facts with top_k=2)
-            general_results = self._retriever.retrieve(query, top_k=2, fund_filter=fund_filter)
+            # Add general query results too
+            general_results = self._retriever.retrieve(query, top_k=4, fund_filter=fund_filter)
             results.extend(general_results)
         else:
             results = self._retriever.retrieve(augmented_query, top_k=self._top_k, fund_filter=fund_filter)
@@ -398,7 +399,6 @@ class RAGGenerator:
         
         # 1. Check if user filtered explicitly in UI
         if fund_filter:
-            selected_codes = [t.strip().upper() for t in pyre.split(r'[,·|]', fund_filter) if t.strip()]
             for c in selected_codes:
                 if c in FRAGMENTS: query_fragments.append(FRAGMENTS[c])
         
@@ -417,8 +417,8 @@ class RAGGenerator:
                 if slug not in query_fragments: query_fragments.append(slug)
         
         # 3. Check answer (secondary relevance, but ignore trailing canned disclaimer)
-        # Only check first 500 chars of answer to be safer
-        answer_body = low_answer[:500]
+        # Expansion: Check first 1000 chars of answer to ensure 4th fund isn't missed in long responses.
+        answer_body = low_answer[:1000]
         for code, slug in FRAGMENTS.items():
             readable = slug.replace("-", " ")
             if code.lower() in answer_body or readable in answer_body:
@@ -497,8 +497,11 @@ class RAGGenerator:
                 seen_norms.add(norm)
                 final_source_urls.append(u)
             
-            # Cap at 4 for multi-fund queries, 3 otherwise
-            cap = 4 if is_plural else 3
+            # Cap at 4 for multi-fund queries, 3 otherwise (Dynamic based on detected funds)
+            num_detected = len(set(active_frags))
+            cap = max(3, num_detected)
+            if is_plural or len(selected_codes) > 1:
+                cap = max(cap, 4)
             final_source_urls = final_source_urls[:cap]
 
         return GenerationResult(
