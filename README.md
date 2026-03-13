@@ -30,7 +30,7 @@ We used a **Retrieval-Augmented Generation (RAG)** architecture to build this, e
 
 ## 📺 Demo
 
-<video src="assets/demo.mov" controls="controls" style="max-width: 100%; display: block; margin: 0 auto;"></video>
+<video src="https://github.com/sourabhsharmaaa/mutual-fund-rag-chatbot/raw/main/assets/demo.mov" controls="controls" style="max-width: 100%; display: block; margin: 0 auto;"></video>
 
 ## ✨ Key Features
 
