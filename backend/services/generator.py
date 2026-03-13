@@ -282,6 +282,21 @@ class RAGGenerator:
             # Add general query results too
             general_results = self._retriever.retrieve(query, top_k=2)
             results.extend(general_results)
+        elif len(selected_funds) > 1:
+            # Perform separate retrievals for EACH selected fund to guarantee EVEN coverage!
+            fund_names = {
+                "PPFCF": "Parag Parikh Flexi Cap Fund",
+                "PPTSF": "PPFAS ELSS Tax Saver Fund",
+                "PPCHF": "Parag Parikh Conservative Hybrid Fund",
+                "PPLF":  "Parag Parikh Liquid Fund",
+            }
+            for code in selected_funds:
+                fname = fund_names.get(code, code)
+                fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=2, fund_filter=code)
+                results.extend(fund_results)
+            # Add general query results too for overlapping definitions
+            general_results = self._retriever.retrieve(query, top_k=2, fund_filter=fund_filter)
+            results.extend(general_results)
         else:
             results = self._retriever.retrieve(augmented_query, top_k=self._top_k, fund_filter=fund_filter)
             
