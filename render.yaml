@@ -14,7 +14,3 @@ services:
         value: true        # Signals the app to use DummyEmbeddingFunc (saves memory)
       - key: FRONTEND_URL
         sync: false        # Set to your Vercel URL, e.g. https://your-app.vercel.app
-    disk:
-      name: vector-store
-      mountPath: /opt/render/project/src/vector_store
-      sizeGB: 1          # Free plan allows up to 1 GB persistent disk
