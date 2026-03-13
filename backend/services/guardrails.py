@@ -195,7 +195,7 @@ class PreFilter:
                 reason="advice",
                 canned_response=(
                     "I can only share factual data. For investment guidance, please consult a SEBI-registered "
-                    "advisor: https://www.sebi.gov.in/investors.html"
+                    "advisor: https://investor.sebi.gov.in/"
                 ),
             )
 

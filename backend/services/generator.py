@@ -174,29 +174,35 @@ class RAGGenerator:
             }
 
             # Use provided filter, or guess from the query
-            target_fund = fund_filter
-            if not target_fund:
-                if "ppfcf" in query_lower or "flexi" in query_lower: target_fund = "PPFCF"
-                elif "pptsf" in query_lower or "tax" in query_lower: target_fund = "PPTSF"
-                elif "ppchf" in query_lower or "conservative" in query_lower or "hybrid" in query_lower: target_fund = "PPCHF"
-                elif "pplf" in query_lower or "liquid" in query_lower: target_fund = "PPLF"
+            target_funds_list = []
+            if fund_filter:
+                import re as pyre
+                target_funds_list = [f.strip().upper() for f in pyre.split(r'[,·|]', fund_filter) if f.strip().upper() in IND_MONEY_LINKS]
+            
+            if not target_funds_list:
+                if "ppfcf" in query_lower or "flexi" in query_lower: target_funds_list = ["PPFCF"]
+                elif "pptsf" in query_lower or "tax" in query_lower: target_funds_list = ["PPTSF"]
+                elif "ppchf" in query_lower or "conservative" in query_lower or "hybrid" in query_lower: target_funds_list = ["PPCHF"]
+                elif "pplf" in query_lower or "liquid" in query_lower: target_funds_list = ["PPLF"]
                 
-            if target_fund:
+            if target_funds_list:
                 try:
-                    # Async await for NAV fetcher
-                    nav_text = await fetch_live_nav(target_fund)
+                    # Async await for all target funds
+                    nav_futures = [fetch_live_nav(f) for f in target_funds_list]
+                    nav_results = await asyncio.gather(*nav_futures)
+                    nav_text = "\n".join(r for r in nav_results if r)
+                    
                     if nav_text:
                         elapsed = (time.monotonic() - t0) * 1000
-                        sources = []
-                        if target_fund in IND_MONEY_LINKS:
-                            sources.append(IND_MONEY_LINKS[target_fund])
+                        sources = [IND_MONEY_LINKS[f] for f in target_funds_list if f in IND_MONEY_LINKS]
 
+                        prefix = "Here is the latest live NAV for the selected funds:\n\n" if len(target_funds_list) > 1 else ""
                         return GenerationResult(
-                            answer=nav_text,
+                            answer=f"{prefix}{nav_text}",
                             raw_llm_response="",
                             retrieved_chunks=[],
                             source_urls=sources,
-                            sentence_count=1,
+                            sentence_count=len(target_funds_list),
                             elapsed_ms=elapsed,
                         )
                 except Exception as e:
@@ -207,13 +213,13 @@ class RAGGenerator:
                     # If they asked "What is the NAV" without specifying a fund,
                     # fetch NAV for ALL funds so they get a comprehensive answer.
                     async def fetch_all():
-                        nav_futures = [
+                        nav_futures_all = [
                             fetch_live_nav("PPFCF"),
                             fetch_live_nav("PPTSF"),
                             fetch_live_nav("PPCHF"),
                             fetch_live_nav("PPLF")
                         ]
-                        return await asyncio.gather(*nav_futures)
+                        return await asyncio.gather(*nav_futures_all)
                     
                     nav_results = await fetch_all()
                     nav_text = "\n".join(r for r in nav_results if r)  # type: ignore
@@ -242,7 +248,9 @@ class RAGGenerator:
 
         # Only augment the search query with a fund-name prefix if EXACTLY ONE fund is selected.
         # Prefixing with multiple funds (e.g. 'PPCHF · PPTSF: ...') muddies the semantic search results.
-        if len(selected_funds) == 1:
+        if "cas" in query_lower or "statement" in query_lower:
+            augmented_query = "Consolidated Account Statement CAS download " + query
+        elif len(selected_funds) == 1:
             fund_names = {
                 "PPFCF": "Parag Parikh Flexi Cap Fund",
                 "PPTSF": "PPFAS ELSS Tax Saver Fund",
@@ -256,7 +264,12 @@ class RAGGenerator:
 
         t_retrieve_start = time.monotonic()
         
-        is_plural_query = "funds" in query.lower() or "all fund" in query.lower()
+        is_plural_query = "funds" in query_lower or "all fund" in query_lower
+        
+        # If user asks a general question (expense ratio, exit load) with NO filter, treat it as plural to get all 4 funs
+        if not fund_filter and not any(f in query_lower for f in ["flexi", "tax", "liquid", "conservative", "hybrid", "ppfcf", "pptsf", "ppchf", "pplf"]):
+            if any(k in query_lower for k in ["expense", "exit load", "aum", "minimum", "manage"]):
+                is_plural_query = True
         
         results = []
         if is_plural_query and not fund_filter:
