@@ -30,7 +30,7 @@ We used a **Retrieval-Augmented Generation (RAG)** architecture to build this, e
 
 ## 📺 Demo
 
-![Project Demo Video](file:///Users/sourabh/.gemini/antigravity/brain/81aebf93-6ea3-47e4-9fb8-38516d4eaa28/project_demo_v1_1773310297392.webp)
+![Project Demo Video](assets/demo.mov)
 
 ## ✨ Key Features
 
