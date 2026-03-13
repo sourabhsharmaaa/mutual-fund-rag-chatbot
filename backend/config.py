@@ -58,7 +58,7 @@ MAX_RESPONSE_SENTENCES: int   = 10    # high cap for table/list support
 # ---------------------------------------------------------------------------
 # Static URLs used in guardrail refusals
 # ---------------------------------------------------------------------------
-SEBI_ADVISOR_URL    = "https://www.sebi.gov.in/investors.html"
+SEBI_ADVISOR_URL    = "https://investor.sebi.gov.in/"
 PPFAS_HOME_URL      = "https://amc.ppfas.com"
 PPFAS_FACTSHEET_URL = "https://amc.ppfas.com/downloads/factsheet/"
 AMFI_EDUCATION_URL  = "https://www.amfiindia.com/investor/knowledge-center"

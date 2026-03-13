@@ -97,13 +97,26 @@ class Retriever:
         Returns sorted list of RetrievalResult (best match first).
         """
         store = self._get_store()
-        raw = store.query(query, n_results=top_k, fund_filter=fund_filter)
+        raw = store.query(query, n_results=100, fund_filter=fund_filter) # Fetch more for re-ranking if dummy
 
         results = []
         for r in raw:
             dist = r.get("distance", 1.0)
+            
             # Dummy embedding always returns distance 1.0 (since all vectors are 0)
-            # We bypass the threshold so Render can still serve the right fund chunks.
+            is_dummy = (dist == 1.0 or dist == 0.0)
+            
+            # If we're in dummy mode, we calculate a pseudo-distance based on keyword matches
+            if is_dummy:
+                q_words = set(query.lower().split())
+                t_lower = r["text"].lower()
+                matches = sum(1 for w in q_words if w in t_lower and len(w) > 2)
+                # Boost if specific fund codes match
+                if fund_filter and fund_filter.lower() in t_lower:
+                    matches += 5
+                # Map matches to a distance (0.0 is perfect, 1.0 is no match)
+                dist = max(0.0, 1.0 - (matches * 0.1))
+
             if dist > 1.1:
                 continue
 
@@ -117,7 +130,10 @@ class Retriever:
                     distance=dist,
                 )
             )
-        return results
+        
+        # Sort by boosted distance
+        results.sort(key=lambda x: x.distance)
+        return results[:top_k]
 
     def collect_source_urls(self, results: list[RetrievalResult]) -> list[str]:
         """Deduplicated list of source URLs from the retrieved results."""

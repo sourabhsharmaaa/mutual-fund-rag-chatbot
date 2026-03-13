@@ -28,9 +28,9 @@ async def fetch_live_nav(fund_code: str) -> str:
 
     import asyncio
 
-    # Retry parameters - keep timeout short enough to stay under Render's 30s limit
-    MAX_ATTEMPTS = 2
-    TIMEOUT = 8.0
+    # Retry parameters - increased for production stability
+    MAX_ATTEMPTS = 3
+    TIMEOUT = 20.0
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:

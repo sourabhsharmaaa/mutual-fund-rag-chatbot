@@ -20,6 +20,7 @@ from __future__ import annotations
 import logging
 import re
 import time
+import os
 from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
@@ -121,6 +122,14 @@ class RAGGenerator:
 
         self._top_k     = RETRIEVAL_TOP_K
         self._context_k = RETRIEVAL_CONTEXT_K
+        
+        # Render-specific context boost: fetch more to avoid DummyEmbedding search failure.
+        # Now used in tandem with keyword re-ranking in retriever.py.
+        if os.environ.get("RENDER"):
+            logger.info("Adjusted retrieval context for Render (top_k=15)")
+            self._top_k = 15
+            self._context_k = 15
+
         self._model_name    = GROQ_MODEL
         self._temperature   = LLM_TEMPERATURE
         self._max_tokens    = LLM_MAX_TOKENS

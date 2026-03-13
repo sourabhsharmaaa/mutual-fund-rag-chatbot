@@ -23,6 +23,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 from typing import Optional
+import backend.config as config  # type: ignore
 
 
 # ---------------------------------------------------------------------------
@@ -195,7 +196,7 @@ class PreFilter:
                 reason="advice",
                 canned_response=(
                     "I can only share factual data. For investment guidance, please consult a SEBI-registered "
-                    "advisor: https://investor.sebi.gov.in/"
+                    f"advisor: {config.SEBI_ADVISOR_URL}"
                 ),
             )
 
