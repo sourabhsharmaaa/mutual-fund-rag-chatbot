@@ -108,9 +108,11 @@ class Retriever:
             
             # If we're in dummy mode, we calculate a pseudo-distance based on keyword matches
             if is_dummy:
-                q_words = set(query.lower().split())
+                import re
+                # Strip punctuation and get unique words > 2 chars
+                q_words = set(re.sub(r'[^\w\s]', '', query.lower()).split())
                 t_lower = r["text"].lower()
-                matches = sum(1 for w in q_words if w in t_lower and len(w) > 2)
+                matches = sum(1 for w in q_words if len(w) > 2 and w in t_lower)
                 # Boost if specific fund codes match
                 if fund_filter and fund_filter.lower() in t_lower:
                     matches += 5
