@@ -30,7 +30,7 @@ We used a **Retrieval-Augmented Generation (RAG)** architecture to build this, e
 
 ## 📺 Demo
 
-[📺 Watch the Project Demo Video](assets/demo.mov)
+[Watch the Project Demo Video](assets/demo.mov)
 
 ## ✨ Key Features
 
