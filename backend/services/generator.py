@@ -126,9 +126,9 @@ class RAGGenerator:
         # Render-specific context boost: fetch more to avoid DummyEmbedding search failure.
         # Now used in tandem with keyword re-ranking in retriever.py.
         if os.environ.get("RENDER"):
-            logger.info("Adjusted retrieval context for Render (top_k=15)")
+            logger.info("Adjusted retrieval context for Render (top_k=15, context_k=20)")
             self._top_k = 15
-            self._context_k = 15
+            self._context_k = 20 # Increased from 15
 
         self._model_name    = GROQ_MODEL
         self._temperature   = LLM_TEMPERATURE
@@ -288,8 +288,8 @@ class RAGGenerator:
             for fname in fund_names:
                 fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4) # Increased for better factual coverage
                 results.extend(fund_results)
-            # Add general query results too
-            general_results = self._retriever.retrieve(query, top_k=4)
+            # Add general query results too (Focus on fund-specific facts with top_k=2)
+            general_results = self._retriever.retrieve(query, top_k=2)
             results.extend(general_results)
         elif len(selected_funds) > 1:
             # Perform separate retrievals for EACH selected fund to guarantee EVEN coverage!
@@ -303,8 +303,8 @@ class RAGGenerator:
                 fname = fund_names.get(code, code)
                 fund_results = self._retriever.retrieve(f"{fname}: {query}", top_k=4, fund_filter=code)
                 results.extend(fund_results)
-            # Add general query results too for overlapping definitions
-            general_results = self._retriever.retrieve(query, top_k=4, fund_filter=fund_filter)
+            # Add general query results too (Focus on fund-specific facts with top_k=2)
+            general_results = self._retriever.retrieve(query, top_k=2, fund_filter=fund_filter)
             results.extend(general_results)
         else:
             results = self._retriever.retrieve(augmented_query, top_k=self._top_k, fund_filter=fund_filter)
@@ -403,7 +403,9 @@ class RAGGenerator:
                 if c in FRAGMENTS: query_fragments.append(FRAGMENTS[c])
         
         # 2. Check query (highest relevance) + plurals
-        is_plural = any(k in low_query for k in ["funds", "all fund", "expense ratio", "fund managers", "exit load", "aum"])
+        # CRITICAL: Only trigger 'is_plural' source behavior if NO fund filter is applied in UI.
+        is_plural = not fund_filter and any(k in low_query for k in ["funds", "all fund", "expense ratio", "fund managers", "exit load", "aum", "each", "both"])
+        
         for code, slug in FRAGMENTS.items():
             readable = slug.replace("-", " ")
             # Better matching for PPTSF (ELSS)
