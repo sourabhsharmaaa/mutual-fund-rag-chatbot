@@ -69,10 +69,11 @@ function MultiFundPlanner({ funds, onAsk, onAskAll, disabled }: PlannerProps) {
 
     useEffect(() => {
         if (!disabled) {
-            // Use block: 'center' to ensure it's fully visible at the top of the chat area
+            // Only scroll into view when explicitly enabled (transition from loading or initial mount)
+            // Removed funds.length to prevent jumping while user is toggling sidebar funds.
             plannerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-    }, [funds.length, disabled]);
+    }, [disabled]);
 
     return (
         <div className="multi-fund-planner" ref={plannerRef}>

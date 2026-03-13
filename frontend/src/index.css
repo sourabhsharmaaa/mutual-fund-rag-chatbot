@@ -788,6 +788,7 @@ body,
   max-width: var(--msg-max-w);
   margin: 0 auto;
   width: 100%;
+  transition: min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .planner-header {
@@ -796,11 +797,10 @@ body,
 }
 
 .planner-title {
-  font-size: var(--fs-2xl);
-  font-weight: 800;
   color: var(--text-1);
-  letter-spacing: -0.03em;
-  margin-bottom: 8px;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  text-transform: capitalize;
 }
 
 .planner-sub {
@@ -827,7 +827,7 @@ body,
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .planner-fund-label strong {
@@ -845,7 +845,7 @@ body,
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .planner-q-chip {
