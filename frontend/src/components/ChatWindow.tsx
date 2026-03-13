@@ -69,8 +69,9 @@ function MultiFundPlanner({ funds, onAsk, onAskAll, disabled }: PlannerProps) {
 
     useEffect(() => {
         if (!disabled) {
-            // Re-added funds.length to ensure it centers when content grows/shrinks
-            plannerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Changed to block: 'start' to ensure the header "X Funds Selected" is always at top.
+            // 'center' was pushing it off-screen for taller content (3-4 funds).
+            plannerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, [disabled, funds.length]);
 
