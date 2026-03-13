@@ -69,16 +69,15 @@ function MultiFundPlanner({ funds, onAsk, onAskAll, disabled }: PlannerProps) {
 
     useEffect(() => {
         if (!disabled) {
-            // Only scroll into view when explicitly enabled (transition from loading or initial mount)
-            // Removed funds.length to prevent jumping while user is toggling sidebar funds.
+            // Re-added funds.length to ensure it centers when content grows/shrinks
             plannerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-    }, [disabled]);
+    }, [disabled, funds.length]);
 
     return (
         <div className="multi-fund-planner" ref={plannerRef}>
             <div className="planner-header">
-                <h2 className="planner-title">{funds.length} funds selected</h2>
+                <h2 className="planner-title">{funds.length} Funds Selected</h2>
                 <div className="planner-sub">
                     pick a starter question or type a custom one below. Each fund is answered independently.
                 </div>
