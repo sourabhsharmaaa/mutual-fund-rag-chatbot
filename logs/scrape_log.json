@@ -1,155 +1,155 @@
 {
-  "run_at": "2026-05-28T13:48:35.087356+05:30",
+  "run_at": "2026-05-29T13:46:07.117723+05:30",
   "entries": [
     {
       "id": 5,
       "url": "https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/",
       "description": "PPFAS — PPFCF official scheme page",
       "status": "ok",
-      "elapsed_ms": 13285.90186400004,
+      "elapsed_ms": 13034.843800999966,
       "field_count": 5,
       "error": null,
-      "scraped_at": "2026-05-28T13:46:49.799420+05:30"
+      "scraped_at": "2026-05-29T13:44:23.136085+05:30"
     },
     {
       "id": 6,
       "url": "https://amc.ppfas.com/schemes/parag-parikh-tax-saver-fund/",
       "description": "PPFAS — PPTSF official scheme page",
       "status": "ok",
-      "elapsed_ms": 12630.604893999931,
+      "elapsed_ms": 12319.25019700003,
       "field_count": 4,
       "error": null,
-      "scraped_at": "2026-05-28T13:47:04.459070+05:30"
+      "scraped_at": "2026-05-29T13:44:37.501708+05:30"
     },
     {
       "id": 7,
       "url": "https://amc.ppfas.com/schemes/parag-parikh-conservative-hybrid-fund/",
       "description": "PPFAS — PPCHF official scheme page",
       "status": "ok",
-      "elapsed_ms": 12720.528118999937,
+      "elapsed_ms": 13250.779412999975,
       "field_count": 5,
       "error": null,
-      "scraped_at": "2026-05-28T13:47:19.218888+05:30"
+      "scraped_at": "2026-05-29T13:44:52.796393+05:30"
     },
     {
       "id": 8,
       "url": "https://amc.ppfas.com/schemes/parag-parikh-liquid-fund/",
       "description": "PPFAS — PPLF official scheme page",
       "status": "ok",
-      "elapsed_ms": 12549.745444999986,
+      "elapsed_ms": 11663.75724300002,
       "field_count": 5,
       "error": null,
-      "scraped_at": "2026-05-28T13:47:33.799071+05:30"
+      "scraped_at": "2026-05-29T13:45:06.498995+05:30"
     },
     {
       "id": 1,
       "url": "https://www.indmoney.com/mutual-funds/parag-parikh-flexi-cap-direct-growth-3229",
       "description": "IndMoney — PPFCF scheme page",
       "status": "error",
-      "elapsed_ms": 2475.625089999994,
+      "elapsed_ms": 2444.6589749999816,
       "field_count": 0,
       "error": "HTTP 403",
-      "scraped_at": "2026-05-28T13:47:38.311691+05:30"
+      "scraped_at": "2026-05-29T13:45:10.991990+05:30"
     },
     {
       "id": 2,
       "url": "https://www.indmoney.com/mutual-funds/parag-parikh-tax-saver-fund-direct-growth-1002345",
       "description": "IndMoney — PPTSF scheme page",
       "status": "error",
-      "elapsed_ms": 2370.6132649999745,
+      "elapsed_ms": 2438.796927999988,
       "field_count": 0,
       "error": "HTTP 403",
-      "scraped_at": "2026-05-28T13:47:42.716228+05:30"
+      "scraped_at": "2026-05-29T13:45:15.483640+05:30"
     },
     {
       "id": 3,
       "url": "https://www.indmoney.com/mutual-funds/parag-parikh-conservative-hybrid-fund-direct-growth-1006619",
       "description": "IndMoney — PPCHF scheme page",
       "status": "error",
-      "elapsed_ms": 2369.2953109999735,
+      "elapsed_ms": 2437.716911999985,
       "field_count": 0,
       "error": "HTTP 403",
-      "scraped_at": "2026-05-28T13:47:47.128770+05:30"
+      "scraped_at": "2026-05-29T13:45:19.967497+05:30"
     },
     {
       "id": 4,
       "url": "https://www.indmoney.com/mutual-funds/parag-parikh-liquid-fund-direct-growth-3180",
       "description": "IndMoney — PPLF scheme page",
       "status": "error",
-      "elapsed_ms": 2370.55967699996,
+      "elapsed_ms": 2423.7324700000045,
       "field_count": 0,
       "error": "HTTP 403",
-      "scraped_at": "2026-05-28T13:47:51.532267+05:30"
+      "scraped_at": "2026-05-29T13:45:24.434585+05:30"
     },
     {
       "id": 9,
       "url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php",
       "description": "PPFAS — Scheme-specific FAQs (all schemes, incl. statement download)",
       "status": "ok",
-      "elapsed_ms": 3425.8308579999266,
+      "elapsed_ms": 3998.3036830000174,
       "field_count": 4,
       "error": null,
-      "scraped_at": "2026-05-28T13:47:56.991837+05:30"
+      "scraped_at": "2026-05-29T13:45:30.473457+05:30"
     },
     {
       "id": 10,
       "url": "https://amc.ppfas.com/downloads/kim-sid-and-sai/",
       "description": "PPFAS — SID/KIM document download page",
       "status": "ok",
-      "elapsed_ms": 4596.676604999971,
+      "elapsed_ms": 3373.6593649999804,
       "field_count": 2,
       "error": null,
-      "scraped_at": "2026-05-28T13:48:03.620053+05:30"
+      "scraped_at": "2026-05-29T13:45:35.890282+05:30"
     },
     {
       "id": 11,
       "url": "https://www.amfiindia.com/online-center/download-cas",
       "description": "AMFI — Download CAS (CAMS / KFintech / MFCentral procedure)",
       "status": "ok",
-      "elapsed_ms": 4336.384359999897,
+      "elapsed_ms": 3814.3855019999933,
       "field_count": 5,
       "error": null,
-      "scraped_at": "2026-05-28T13:48:09.984154+05:30"
+      "scraped_at": "2026-05-29T13:45:41.742893+05:30"
     },
     {
       "id": 12,
       "url": "https://www.amfiindia.com/online-center/risk-o-meter",
       "description": "AMFI — Risk-o-Meter definitions",
       "status": "ok",
-      "elapsed_ms": 3491.1904100000584,
+      "elapsed_ms": 3611.3855309999963,
       "field_count": 4,
       "error": null,
-      "scraped_at": "2026-05-28T13:48:15.504092+05:30"
+      "scraped_at": "2026-05-29T13:45:47.394934+05:30"
     },
     {
       "id": 13,
       "url": "https://www.indmoney.com/mutual-funds/amc/parag-parikh-mutual-fund",
       "description": "IndMoney — PPFAS AMC overview page",
       "status": "error",
-      "elapsed_ms": 2360.424051999985,
+      "elapsed_ms": 2428.600192000033,
       "field_count": 0,
       "error": "HTTP 403",
-      "scraped_at": "2026-05-28T13:48:19.907103+05:30"
+      "scraped_at": "2026-05-29T13:45:51.870266+05:30"
     },
     {
       "id": 14,
       "url": "https://www.indmoney.com/articles/mutual-fund-taxation",
       "description": "IndMoney — Mutual Fund taxation article",
       "status": "error",
-      "elapsed_ms": 2404.355363000036,
+      "elapsed_ms": 2417.6722450000057,
       "field_count": 0,
       "error": "HTTP 403",
-      "scraped_at": "2026-05-28T13:48:24.350177+05:30"
+      "scraped_at": "2026-05-29T13:45:56.331423+05:30"
     },
     {
       "id": 15,
       "url": "https://www.amfiindia.com/investor/knowledge-center-info?zoneName=expenseRatio",
       "description": "AMFI — Expense Ratio / TER regulation definitions",
       "status": "ok",
-      "elapsed_ms": 3664.24404899999,
+      "elapsed_ms": 3538.5721970000077,
       "field_count": 4,
       "error": null,
-      "scraped_at": "2026-05-28T13:48:30.043732+05:30"
+      "scraped_at": "2026-05-29T13:46:01.910030+05:30"
     }
   ]
 }
