@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-13T13:34:03.662971+05:30",
+  "scraped_at": "2026-06-14T14:03:17.790433+05:30",
   "total_urls_attempted": 15,
   "total_urls_ok": 9,
   "schemes": [
@@ -44,8 +44,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "NA",
-      "nav_as_of": "NA"
+      "nav": "31.36800",
+      "nav_as_of": "12-Jun-2026"
     },
     {
       "scheme_name": "Parag Parikh Conservative Hybrid Fund",
@@ -88,8 +88,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "1545.48760",
-      "nav_as_of": "13-Jun-2026"
+      "nav": "1545.74690",
+      "nav_as_of": "14-Jun-2026"
     }
   ],
   "faqs": [
