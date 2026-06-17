@@ -14,11 +14,11 @@
     "entry_load": "NA",
     "fund_manager": "Factsheets",
     "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER/",
-    "riskometer": "High",
+    "riskometer": "Risk-O-Meter: Very High",
     "sid_link": "/downloads/ConfirmCitizenship.php",
     "source_url": "https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/"
   },
   "error_message": "",
-  "elapsed_ms": 12792.6,
+  "elapsed_ms": 13041.7,
   "field_count": 5
 }
