@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-20T13:37:07.518655+05:30",
+  "scraped_at": "2026-06-21T14:18:06.661878+05:30",
   "total_urls_attempted": 15,
   "total_urls_ok": 9,
   "schemes": [
@@ -88,8 +88,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "1547.80730",
-      "nav_as_of": "20-Jun-2026"
+      "nav": "NA",
+      "nav_as_of": "NA"
     }
   ],
   "faqs": [
