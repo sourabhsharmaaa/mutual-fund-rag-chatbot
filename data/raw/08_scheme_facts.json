@@ -8,17 +8,17 @@
     "date_of_allotment": "NA",
     "min_lumpsum_amount": "NA",
     "min_sip_amount": "NA",
-    "exit_load": "NA",
+    "exit_load": "Investor Exit upon subscription\n                                Exit Load as a % of redemption proceeds",
     "benchmark": "NA",
     "lock_in_period": "NA",
     "entry_load": "NA",
     "fund_manager": "Is this the right scheme for you?",
     "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER/",
-    "riskometer": "Low",
+    "riskometer": "Risk-O-Meter: Low to Moderate; Portfolio Risk Classification chart",
     "sid_link": "/downloads/ConfirmCitizenship.php",
     "source_url": "https://amc.ppfas.com/schemes/parag-parikh-liquid-fund/"
   },
   "error_message": "",
-  "elapsed_ms": 11499.7,
-  "field_count": 5
+  "elapsed_ms": 11447.3,
+  "field_count": 6
 }
