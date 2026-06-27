@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-26T13:39:41.655797+05:30",
+  "scraped_at": "2026-06-27T13:05:25.171688+05:30",
   "total_urls_attempted": 15,
   "total_urls_ok": 9,
   "schemes": [
@@ -22,8 +22,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "89.71270",
-      "nav_as_of": "25-Jun-2026"
+      "nav": "NA",
+      "nav_as_of": "NA"
     },
     {
       "scheme_name": "Parag Parikh ELSS Tax Saver Fund",
@@ -44,8 +44,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "31.80620",
-      "nav_as_of": "25-Jun-2026"
+      "nav": "NA",
+      "nav_as_of": "NA"
     },
     {
       "scheme_name": "Parag Parikh Conservative Hybrid Fund",
@@ -88,8 +88,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "1549.45950",
-      "nav_as_of": "26-Jun-2026"
+      "nav": "1550.00030",
+      "nav_as_of": "28-Jun-2026"
     }
   ],
   "faqs": [
