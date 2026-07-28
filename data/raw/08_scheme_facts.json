@@ -14,11 +14,11 @@
     "entry_load": "NA",
     "fund_manager": "Is this the right scheme for you?",
     "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER/",
-    "riskometer": "Risk-O-Meter: Low to Moderate; Portfolio Risk Classification chart",
+    "riskometer": "Portfolio Risk Classification chart",
     "sid_link": "/downloads/ConfirmCitizenship.php",
     "source_url": "https://amc.ppfas.com/schemes/parag-parikh-liquid-fund/"
   },
   "error_message": "",
-  "elapsed_ms": 12202.8,
+  "elapsed_ms": 11321.4,
   "field_count": 6
 }
