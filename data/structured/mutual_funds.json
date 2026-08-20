@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-08-19T10:32:33.517369+05:30",
+  "scraped_at": "2026-08-20T10:34:03.709564+05:30",
   "total_urls_attempted": 15,
   "total_urls_ok": 9,
   "schemes": [
@@ -124,13 +124,8 @@
       "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
     },
     {
-      "question": "Can a new investor invest online?",
-      "answer": "Yes, investor can create folios online, subject to them being KRA compliant. Know more here.",
-      "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
-    },
-    {
-      "question": "How can I invest in PPFCF?",
-      "answer": "You may choose from any of the following options: Online options: Mutual Fund Platforms such MFCentral, BSE StAR MF, Scripbox, Groww, Zerodha Coin, etc. For Offline Investors Investors who would like to invest in the PPFCF offline can download the Application form, complete it and submit it to any of the Collection Centers along with a cheque/demand draft, payable locally payable to \"Parag Parikh Flexi Cap Fund\", along with a certified copy of their PAN Card copy and KRA Acknowledgement letter. Organizations interested in investing in PPFCF can refer to the checklist of documents required at the time of Offline Investing in the scheme.",
+      "question": "Can a new investor invest online in PPFCF?",
+      "answer": "Yes, investors can create folios online. You may choose from any of the following options: Online options: Mutual Fund Platforms such MFCentral, BSE StAR MF, Scripbox, Groww, Zerodha Coin, etc. For Offline Investors Investors who would like to invest in the PPFCF offline can download the Application form, complete it and submit it to any of the Collection Centers along with a cheque/demand draft, payable locally payable to \"Parag Parikh Flexi Cap Fund\", along with a certified copy of their PAN Card copy and KRA Acknowledgement letter. Organizations interested in investing in PPFCF can refer to the checklist of documents required at the time of Offline Investing in the scheme. Document Requirements by Investor Type - Parag Parikh Flexi Cap Fund",
       "source_url": "https://amc.ppfas.com/faqs/scheme-specific-faqs/index.php"
     }
   ],
