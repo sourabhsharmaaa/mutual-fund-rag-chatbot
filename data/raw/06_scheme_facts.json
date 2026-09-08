@@ -1,24 +1,8 @@
 {
   "source_url": "https://amc.ppfas.com/schemes/parag-parikh-tax-saver-fund/",
-  "status": "ok",
-  "data": {
-    "scheme_name": "NA",
-    "investment_objective": "NA",
-    "category": "NA",
-    "date_of_allotment": "NA",
-    "min_lumpsum_amount": "NA",
-    "min_sip_amount": "NA",
-    "exit_load": "NA",
-    "benchmark": "NA",
-    "lock_in_period": "NA",
-    "entry_load": "NA",
-    "fund_manager": "Is this the right scheme for you? 🤔",
-    "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER",
-    "riskometer": "NA",
-    "sid_link": "/downloads/ConfirmCitizenship.php",
-    "source_url": "https://amc.ppfas.com/schemes/parag-parikh-tax-saver-fund/"
-  },
-  "error_message": "",
-  "elapsed_ms": 12500.7,
-  "field_count": 4
+  "status": "error",
+  "data": {},
+  "error_message": "HTTP 403",
+  "elapsed_ms": 2663.6,
+  "field_count": 0
 }
