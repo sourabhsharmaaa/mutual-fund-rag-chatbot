@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-09-08T14:34:47.181865+05:30",
+  "scraped_at": "2026-09-09T14:36:55.705522+05:30",
   "total_urls_attempted": 15,
   "total_urls_ok": 8,
   "schemes": [
@@ -22,8 +22,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "90.34730",
-      "nav_as_of": "07-Sep-2026"
+      "nav": "90.01810",
+      "nav_as_of": "08-Sep-2026"
     },
     {
       "scheme_name": "Parag Parikh ELSS Tax Saver Fund",
@@ -42,8 +42,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "NA",
-      "nav": "31.61730",
-      "nav_as_of": "07-Sep-2026"
+      "nav": "31.49410",
+      "nav_as_of": "08-Sep-2026"
     },
     {
       "scheme_name": "Parag Parikh Conservative Hybrid Fund",
@@ -64,8 +64,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "To generate regular income through investments predominantly in debt and money market instruments. The\n            Scheme also seeks to generate long term capital appreciation from the portion of equity investments under\n            the scheme.\n\n\n            \n\n            However, there is no assurance or guarantee that the investment objective of the Scheme will be achieved and\n            the Scheme does not assure or guarantee any returns.",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "16.16060",
-      "nav_as_of": "07-Sep-2026"
+      "nav": "16.16500",
+      "nav_as_of": "08-Sep-2026"
     },
     {
       "scheme_name": "Parag Parikh Liquid Fund",
@@ -86,8 +86,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "1569.88910",
-      "nav_as_of": "07-Sep-2026"
+      "nav": "1570.09370",
+      "nav_as_of": "08-Sep-2026"
     }
   ],
   "faqs": [
