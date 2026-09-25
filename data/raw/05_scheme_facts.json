@@ -1,8 +1,24 @@
 {
   "source_url": "https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/",
-  "status": "timeout",
-  "data": {},
-  "error_message": "Page.goto: Timeout 60000ms exceeded.\nCall log:\nnavigating to \"https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/\", waiting until \"domcontentloaded\"\n",
-  "elapsed_ms": 60425.0,
-  "field_count": 0
+  "status": "ok",
+  "data": {
+    "scheme_name": "NA",
+    "investment_objective": "NA",
+    "category": "NA",
+    "date_of_allotment": "NA",
+    "min_lumpsum_amount": "NA",
+    "min_sip_amount": "NA",
+    "exit_load": "NA",
+    "benchmark": "NA",
+    "lock_in_period": "NA",
+    "entry_load": "NA",
+    "fund_manager": "Factsheets",
+    "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER/",
+    "riskometer": "High",
+    "sid_link": "/downloads/ConfirmCitizenship.php",
+    "source_url": "https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/"
+  },
+  "error_message": "",
+  "elapsed_ms": 12817.9,
+  "field_count": 5
 }
