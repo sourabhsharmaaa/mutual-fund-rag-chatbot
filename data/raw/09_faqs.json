@@ -9,7 +9,7 @@
       },
       {
         "question": "What is the asset allocation pattern for PPFCF?",
-        "answer": "Under normal circumstances the scheme corpus will be allocated as under: Asset Allocation Pattern for Parag Parikh Flexi Cap Fund Type of Security\tMinimum Allocation (% of net assets)\tMaximum Allocation (% of net assets)\tRisk Profile Equity and equity related instruments\t65\t100\tMedium to high Debt Securities, Money Market Securities\t0\t35\tLow to medium Foreign Equity and equity related instruments\t0\t35\tMedium to high Debt Securities (including Units) issued by REITs & InvITs\t0\t10\tMedium to high"
+        "answer": "Under normal circumstances the scheme corpus will be allocated as under: Asset Allocation Pattern for Parag Parikh Flexi Cap Fund Type of Security\tMinimum Allocation (% of net assets)\tMaximum Allocation (% of net assets)\tRisk Profile Equity and Equity related instruments#\t65\t100\tMedium to high Money Market Instruments@ and Other liquid instruments$, Gold and Silver ETFs and Units issued by InvITs\t0\t35\tLow to medium Foreign Equity and equity related instruments including Overseas Mutual Funds/ Overseas ETFs\t0\t35\tMedium to high"
       },
       {
         "question": "What is the benchmark of the fund?",
@@ -42,6 +42,6 @@
     ]
   },
   "error_message": "",
-  "elapsed_ms": 3486.5,
+  "elapsed_ms": 3372.8,
   "field_count": 4
 }
