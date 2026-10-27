@@ -12,13 +12,13 @@
     "benchmark": "NA",
     "lock_in_period": "NA",
     "entry_load": "NA",
-    "fund_manager": "Is this the right scheme for you? 🤔",
+    "fund_manager": "NA",
     "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER",
     "riskometer": "NA",
     "sid_link": "/downloads/ConfirmCitizenship.php",
     "source_url": "https://amc.ppfas.com/schemes/parag-parikh-conservative-hybrid-fund/"
   },
   "error_message": "",
-  "elapsed_ms": 12919.7,
-  "field_count": 5
+  "elapsed_ms": 12071.8,
+  "field_count": 4
 }

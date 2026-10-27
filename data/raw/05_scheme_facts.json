@@ -12,13 +12,13 @@
     "benchmark": "NA",
     "lock_in_period": "NA",
     "entry_load": "NA",
-    "fund_manager": "Factsheets",
+    "fund_manager": "NA",
     "expense_ratio": "Refer TER page: /statutory-disclosures/total-expense-ratio-TER/",
     "riskometer": "High",
     "sid_link": "/downloads/ConfirmCitizenship.php",
     "source_url": "https://amc.ppfas.com/schemes/parag-parikh-flexi-cap-fund/"
   },
   "error_message": "",
-  "elapsed_ms": 13098.5,
-  "field_count": 5
+  "elapsed_ms": 13128.5,
+  "field_count": 4
 }
