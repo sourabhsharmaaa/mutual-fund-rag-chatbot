@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-11-18T18:47:59.255895+05:30",
+  "scraped_at": "2026-11-19T19:10:37.322192+05:30",
   "total_urls_attempted": 15,
   "total_urls_ok": 8,
   "schemes": [
@@ -22,8 +22,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "94.28900",
-      "nav_as_of": "17-Nov-2026"
+      "nav": "94.14520",
+      "nav_as_of": "18-Nov-2026"
     },
     {
       "scheme_name": "Parag Parikh ELSS Tax Saver Fund",
@@ -42,8 +42,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "NA",
-      "nav": "32.67690",
-      "nav_as_of": "17-Nov-2026"
+      "nav": "32.53010",
+      "nav_as_of": "18-Nov-2026"
     },
     {
       "scheme_name": "Parag Parikh Conservative Hybrid Fund",
@@ -64,8 +64,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "To generate regular income through investments predominantly in debt and money market instruments. The\n            Scheme also seeks to generate long term capital appreciation from the portion of equity investments under\n            the scheme.\n\n\n            \n\n            However, there is no assurance or guarantee that the investment objective of the Scheme will be achieved and\n            the Scheme does not assure or guarantee any returns.",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "16.13770",
-      "nav_as_of": "17-Nov-2026"
+      "nav": "16.13860",
+      "nav_as_of": "18-Nov-2026"
     },
     {
       "scheme_name": "Parag Parikh Liquid Fund",
@@ -86,8 +86,8 @@
       "date_of_allotment": "NA",
       "investment_objective": "NA",
       "sid_link": "/downloads/ConfirmCitizenship.php",
-      "nav": "1587.87090",
-      "nav_as_of": "17-Nov-2026"
+      "nav": "1588.12740",
+      "nav_as_of": "18-Nov-2026"
     }
   ],
   "faqs": [
@@ -130,7 +130,7 @@
   "general_knowledge": {
     "riskometer_definition": "NA",
     "expense_ratio_definition": "NA",
-    "cas_download_procedure": "iative, come together to provide a facility for mutual fund investors to get a consolidated account statement (CAS) showing their current holdings across all mutual funds electronically via e-CAS through a mail-back service.\nInvestors who have registered their email address with mutual funds can avail this facility and receive a soft copy of the e-CAS showing their current holdings across all mutual funds in their registered email address.\nThe following are the URLs for requesting for the e-CAS from CAMS and KFintech:\nCAMS: https://www.camsonline.com/Investors/Statements/Consolidated-Account-Statement\nKFintech: https://mfs.kfintech.com/investor/General/ConsolidatedAccountStatement\nIn addition to the above, investors can also view and download their mutual fund Portfolio & CAS on the portal of MFCentral (https://www.mfcentral.com), a collaborative online services hub launched jointly by K",
+    "cas_download_procedure": "iative, come together to provide a facility for mutual fund investors to get a consolidated account statement (CAS) showing their current holdings across all mutual funds electronically via e-CAS through a mail-back service.\n\nInvestors who have registered their email address with mutual funds can avail this facility and receive a soft copy of the e-CAS showing their current holdings across all mutual funds in their registered email address.\n\nThe following are the URLs for requesting for the e-CAS from CAMS and KFintech:\n\nCAMS: https://www.camsonline.com/Investors/Statements/Consolidated-Account-Statement\nKFintech: https://mfs.kfintech.com/investor/General/ConsolidatedAccountStatement\n\nIn addition to the above, investors can also view and download their mutual fund Portfolio & CAS on the portal of MFCentral (https://www.mfcentral.com), a collaborative online services hub launched jointly",
     "risk_levels": [],
     "source_urls": [
       "https://www.amfiindia.com/online-center/download-cas",
